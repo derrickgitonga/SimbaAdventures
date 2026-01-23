@@ -252,12 +252,12 @@ export default function TourDetail() {
                 <div className="mb-6">
                   {tour.originalPrice && (
                     <span className="text-muted-foreground line-through text-lg">
-                      ${tour.originalPrice}
+                      KSH {tour.originalPrice}
                     </span>
                   )}
                   <div className="flex items-baseline gap-2">
                     <span className="font-heading font-bold text-4xl text-foreground">
-                      ${tour.price}
+                      KSH {tour.price}
                     </span>
                     <span className="text-muted-foreground">per person</span>
                   </div>

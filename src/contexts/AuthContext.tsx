@@ -8,7 +8,7 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
-// Simple password for demo - in production use proper auth
+
 const ADMIN_PASSWORD = 'simba2024';
 
 export function AuthProvider({ children }: { children: ReactNode }) {

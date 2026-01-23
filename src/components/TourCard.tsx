@@ -37,7 +37,7 @@ export function TourCard({ tour, index = 0 }: TourCardProps) {
           />
           {/* Overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-          
+
           {/* Badges */}
           <div className="absolute top-4 left-4 flex flex-wrap gap-2">
             {tour.featured && (
@@ -55,11 +55,11 @@ export function TourCard({ tour, index = 0 }: TourCardProps) {
           <div className="absolute bottom-4 right-4 text-right">
             {tour.originalPrice && (
               <span className="text-white/60 text-sm line-through block">
-                ${tour.originalPrice}
+                KSH {tour.originalPrice}
               </span>
             )}
             <span className="text-white font-heading font-bold text-2xl">
-              ${tour.price}
+              KSH {tour.price}
             </span>
           </div>
         </div>

@@ -1,4 +1,4 @@
-// Tour Schema
+
 export interface Tour {
   id: string;
   title: string;
@@ -27,7 +27,7 @@ export interface Tour {
   category: string;
 }
 
-// Sales/Booking Schema
+
 export interface Booking {
   id: string;
   tourId: string;
@@ -44,7 +44,7 @@ export interface Booking {
   createdAt: string;
 }
 
-// Analytics Data
+
 export interface AnalyticsData {
   date: string;
   pageViews: number;
@@ -53,7 +53,7 @@ export interface AnalyticsData {
   bookings: number;
 }
 
-// Mock Tours
+
 export const tours: Tour[] = [
   {
     id: '1',
@@ -354,7 +354,7 @@ export const tours: Tour[] = [
   }
 ];
 
-// Mock Bookings
+
 export const bookings: Booking[] = [
   {
     id: 'B001',
@@ -433,7 +433,7 @@ export const bookings: Booking[] = [
   }
 ];
 
-// Mock Analytics
+
 export const analyticsData: AnalyticsData[] = [
   { date: '2024-01-01', pageViews: 1234, uniqueVisitors: 456, inquiries: 12, bookings: 3 },
   { date: '2024-01-02', pageViews: 1567, uniqueVisitors: 523, inquiries: 15, bookings: 4 },
@@ -451,7 +451,7 @@ export const analyticsData: AnalyticsData[] = [
   { date: '2024-01-14', pageViews: 2456, uniqueVisitors: 812, inquiries: 27, bookings: 8 },
 ];
 
-// Categories for filtering
+
 export const categories = [
   'All Adventures',
   'Mountain Expeditions',
@@ -461,5 +461,5 @@ export const categories = [
   'Expedition'
 ];
 
-// Difficulty levels
+
 export const difficultyLevels = ['Easy', 'Moderate', 'Challenging', 'Extreme'];

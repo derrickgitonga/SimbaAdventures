@@ -4,11 +4,11 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap');
 
-/* Simba Adventures Design System - Rugged Earth Tones */
+
 
 @layer base {
   :root {
-    /* Core Earth Palette */
+
     --background: 30 15% 97%;
     --foreground: 30 10% 12%;
 
@@ -18,19 +18,19 @@
     --popover: 30 20% 98%;
     --popover-foreground: 30 10% 12%;
 
-    /* Deep Forest Green - Primary */
+
     --primary: 150 35% 22%;
     --primary-foreground: 30 20% 98%;
 
-    /* Burnt Orange - Accent/CTA */
+
     --accent: 25 85% 50%;
     --accent-foreground: 30 20% 98%;
 
-    /* Slate - Secondary */
+
     --secondary: 200 15% 40%;
     --secondary-foreground: 30 20% 98%;
 
-    /* Muted Earth */
+
     --muted: 30 15% 90%;
     --muted-foreground: 30 10% 45%;
 
@@ -43,19 +43,19 @@
 
     --radius: 0.75rem;
 
-    /* Custom Simba Variables */
+
     --earth-brown: 30 30% 25%;
     --forest-dark: 150 40% 15%;
     --sand: 40 30% 85%;
     --stone: 200 10% 50%;
     --sunset: 15 90% 55%;
 
-    /* Gradients */
+
     --gradient-hero: linear-gradient(135deg, hsl(150 35% 22% / 0.9), hsl(30 30% 25% / 0.85));
     --gradient-card: linear-gradient(180deg, hsl(30 20% 98%), hsl(30 15% 95%));
     --gradient-cta: linear-gradient(135deg, hsl(25 85% 50%), hsl(15 90% 55%));
 
-    /* Shadows */
+
     --shadow-sm: 0 2px 8px hsl(30 10% 12% / 0.08);
     --shadow-md: 0 4px 16px hsl(30 10% 12% / 0.12);
     --shadow-lg: 0 8px 32px hsl(30 10% 12% / 0.16);
@@ -71,7 +71,7 @@
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
-  /* Admin Dark Mode Theme */
+
   .dark {
     --background: 220 20% 10%;
     --foreground: 30 15% 95%;

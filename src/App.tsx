@@ -29,13 +29,13 @@ const App = () => (
             <Route path="/tours/:slug" element={<TourDetail />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
-            
-            {/* Hidden Admin Portal */}
+
+
             <Route path="/portal-access-v1/login" element={<AdminLogin />} />
             <Route path="/portal-access-v1" element={<AdminLayout />}>
               <Route index element={<AdminDashboard />} />
             </Route>
-            
+
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
