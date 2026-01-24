@@ -19,7 +19,7 @@ export function SearchSection() {
     };
 
     return (
-        <section className="py-12 md:py-16 bg-background">
+        <section className="py-8 md:py-10 bg-background">
             <div className="container mx-auto px-4">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -31,7 +31,7 @@ export function SearchSection() {
                     {/* Search Bar */}
                     <form
                         onSubmit={handleSearch}
-                        className="bg-card rounded-2xl p-3 border border-border shadow-sm max-w-3xl mx-auto mb-12"
+                        className="bg-card rounded-2xl p-3 border border-border shadow-sm max-w-3xl mx-auto mb-6"
                     >
                         <div className="flex flex-col md:flex-row gap-3">
                             {/* Search Input */}
@@ -77,7 +77,7 @@ export function SearchSection() {
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.2 }}
-                        className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto"
+                        className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto"
                     >
                         {[
                             { value: '500+', label: 'Adventures' },
@@ -86,7 +86,7 @@ export function SearchSection() {
                             { value: '9', label: 'Years' },
                         ].map((stat) => (
                             <div key={stat.label} className="text-center">
-                                <div className="font-heading font-bold text-2xl md:text-3xl text-foreground mb-1">
+                                <div className="font-heading font-bold text-xl md:text-2xl text-foreground mb-0.5">
                                     {stat.value}
                                 </div>
                                 <div className="text-muted-foreground text-xs">{stat.label}</div>

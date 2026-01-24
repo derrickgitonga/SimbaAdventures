@@ -22,7 +22,7 @@ export function HeroSection() {
   }, [currentVideo]);
 
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-[90vh] flex items-start justify-center overflow-hidden pt-24 md:pt-32">
       {/* Background Video */}
       <video
         ref={videoRef}
