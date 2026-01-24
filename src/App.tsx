@@ -9,6 +9,12 @@ import Tours from "./pages/Tours";
 import TourDetail from "./pages/TourDetail";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import SafetyFirst from "./pages/SafetyFirst";
+import SmallGroups from "./pages/SmallGroups";
+import ExpertGuides from "./pages/ExpertGuides";
+import FlexibleBooking from "./pages/FlexibleBooking";
+import LocalImpact from "./pages/LocalImpact";
+import PassionDriven from "./pages/PassionDriven";
 import AdminLayout from "./pages/admin/AdminLayout";
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -29,6 +35,12 @@ const App = () => (
             <Route path="/tours/:slug" element={<TourDetail />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/safety-first" element={<SafetyFirst />} />
+            <Route path="/small-groups" element={<SmallGroups />} />
+            <Route path="/expert-guides" element={<ExpertGuides />} />
+            <Route path="/flexible-booking" element={<FlexibleBooking />} />
+            <Route path="/local-impact" element={<LocalImpact />} />
+            <Route path="/passion-driven" element={<PassionDriven />} />
 
 
             <Route path="/portal-access-v1/login" element={<AdminLogin />} />
