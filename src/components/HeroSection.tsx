@@ -1,17 +1,39 @@
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 
 export function HeroSection() {
+  const [currentVideo, setCurrentVideo] = useState(0);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const videos = [
+    "/The enchanted blackforest 🫶… - Schweinbachtal - Calw - Germany   -  more nature vibes   -  exploring the world w-   -.mp4",
+    "/mundo.selvagem.wild - 7560162126136921366.mp4"
+  ];
+
+  const handleVideoEnd = () => {
+    setCurrentVideo((prev) => (prev + 1) % videos.length);
+  };
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.load();
+      videoRef.current.play().catch(err => console.log('Autoplay prevented:', err));
+    }
+  }, [currentVideo]);
+
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
       {/* Background Video */}
       <video
+        ref={videoRef}
         autoPlay
         muted
-        loop
         playsInline
+        onEnded={handleVideoEnd}
         className="absolute inset-0 w-full h-full object-cover"
+        key={currentVideo}
       >
-        <source src="/The enchanted blackforest 🫶… - Schweinbachtal - Calw - Germany   -  more nature vibes   -  exploring the world w-   -.mp4" type="video/mp4" />
+        <source src={videos[currentVideo]} type="video/mp4" />
       </video>
 
       {/* Overlay */}
@@ -32,18 +54,6 @@ export function HeroSection() {
           </h1>
         </motion.div>
       </div>
-
-      {/* Scroll Indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1, y: [0, 10, 0] }}
-        transition={{ delay: 1, duration: 2, repeat: Infinity }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-      >
-        <div className="w-6 h-10 rounded-full border-2 border-white/30 flex justify-center pt-2">
-          <div className="w-1.5 h-3 bg-white/60 rounded-full" />
-        </div>
-      </motion.div>
     </section>
   );
 }
