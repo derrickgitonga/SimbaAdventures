@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { MapPin, Clock, Users, Star, TrendingUp } from 'lucide-react';
 import { Tour } from '@/data/mockData';
 import { Badge } from '@/components/ui/badge';
+import { CountdownTimer } from '@/components/CountdownTimer';
 
 interface TourCardProps {
   tour: Tour;
@@ -106,6 +107,9 @@ export function TourCard({ tour, index = 0 }: TourCardProps) {
             </div>
           </div>
 
+          {/* Countdown Timer */}
+          <CountdownTimer deadline={tour.registrationDeadline} compact />
+
           {/* Spots Left */}
           {tour.spotsLeft <= 5 && (
             <div className="bg-destructive/10 text-destructive px-3 py-2 rounded-lg text-sm font-medium text-center">
@@ -117,3 +121,4 @@ export function TourCard({ tour, index = 0 }: TourCardProps) {
     </motion.div>
   );
 }
+

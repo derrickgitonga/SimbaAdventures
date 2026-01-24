@@ -19,6 +19,7 @@ export interface Tour {
   exclusions: string[];
   itinerary: { day: number; title: string; description: string }[];
   nextDate: string;
+  registrationDeadline: string;
   spotsLeft: number;
   maxGroupSize: number;
   views: number;
@@ -100,6 +101,7 @@ export const tours: Tour[] = [
       { day: 5, title: 'Descent & Departure', description: 'Final descent and transfer back to Nairobi.' }
     ],
     nextDate: '2024-03-15',
+    registrationDeadline: '2024-03-10',
     spotsLeft: 6,
     maxGroupSize: 12,
     views: 2847,
@@ -149,6 +151,7 @@ export const tours: Tour[] = [
       { day: 4, title: 'Departure', description: 'Morning walk, fly back to Nairobi.' }
     ],
     nextDate: '2024-02-28',
+    registrationDeadline: '2024-02-23',
     spotsLeft: 4,
     maxGroupSize: 8,
     views: 3421,
@@ -194,6 +197,7 @@ export const tours: Tour[] = [
       { day: 1, title: 'Full Day Adventure', description: 'Early departure from Nairobi, full day cycling and gorge exploration, return by evening.' }
     ],
     nextDate: '2024-02-10',
+    registrationDeadline: '2024-02-07',
     spotsLeft: 15,
     maxGroupSize: 20,
     views: 5632,
@@ -249,6 +253,7 @@ export const tours: Tour[] = [
       { day: 8, title: 'Mweka Gate', description: 'Final descent and celebration.' }
     ],
     nextDate: '2024-04-01',
+    registrationDeadline: '2024-03-25',
     spotsLeft: 3,
     maxGroupSize: 10,
     views: 1892,
@@ -294,6 +299,7 @@ export const tours: Tour[] = [
       { day: 2, title: 'Moorland Exploration', description: 'Morning trek to Gura Falls, afternoon return.' }
     ],
     nextDate: '2024-02-17',
+    registrationDeadline: '2024-02-14',
     spotsLeft: 8,
     maxGroupSize: 12,
     views: 1456,
@@ -345,6 +351,7 @@ export const tours: Tour[] = [
       { day: 7, title: 'Return Journey', description: 'Fly back to Nairobi.' }
     ],
     nextDate: '2024-05-10',
+    registrationDeadline: '2024-05-03',
     spotsLeft: 5,
     maxGroupSize: 8,
     views: 2134,

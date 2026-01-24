@@ -18,6 +18,7 @@ import { Footer } from '@/components/layout/Footer';
 import { tours } from '@/data/mockData';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { CountdownTimer } from '@/components/CountdownTimer';
 
 const difficultyColors = {
   Easy: 'bg-green-500/10 text-green-600 border-green-500/30',
@@ -262,6 +263,9 @@ export default function TourDetail() {
                     <span className="text-muted-foreground">per person</span>
                   </div>
                 </div>
+
+                {/* Registration Countdown */}
+                <CountdownTimer deadline={tour.registrationDeadline} className="mb-6" />
 
                 {/* Spots Left */}
                 {tour.spotsLeft <= 5 && (
