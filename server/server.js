@@ -16,7 +16,11 @@ let toursCache = null;
 let cacheTime = 0;
 const CACHE_DURATION = 60000;
 
-app.use(cors());
+app.use(cors({
+    origin: '*',
+    methods: ['GET', 'POST', 'PATCH', 'DELETE'],
+    credentials: true
+}));
 app.use(express.json());
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -94,6 +98,7 @@ app.get('/api/analytics', async (req, res) => {
     }
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server running on port ${PORT}`);
+    console.log(`API available at http://192.168.0.106:${PORT}/api`);
 });
