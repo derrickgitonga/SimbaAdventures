@@ -6,8 +6,8 @@ export function HeroSection() {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const videos = [
-    "/The enchanted blackforest 🫶… - Schweinbachtal - Calw - Germany   -  more nature vibes   -  exploring the world w-   -.mp4",
-    "/mundo.selvagem.wild - 7560162126136921366.mp4"
+    "/mundo.selvagem.wild - 7560162126136921366.mp4",
+    "/The enchanted blackforest 🫶… - Schweinbachtal - Calw - Germany   -  more nature vibes   -  exploring the world w-   -.mp4"
   ];
 
   const handleVideoEnd = () => {
