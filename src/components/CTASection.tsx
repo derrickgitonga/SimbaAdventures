@@ -27,7 +27,7 @@ export function CTASection() {
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/20 text-accent border border-accent/30 text-sm font-medium mb-6"
               >
                 <Calendar className="w-4 h-4" />
-                2024 Season Now Open
+                2026 Season Now Open
               </motion.span>
 
               <motion.h2
@@ -49,7 +49,7 @@ export function CTASection() {
                 className="text-primary-foreground/80 text-lg mb-8 leading-relaxed"
               >
                 Join thousands of adventurers who've discovered the magic of East Africa with us.
-                Book your 2024 expedition today and save up to 15% with early bird pricing.
+                Book your 2026 expedition today and save up to 15% with early bird pricing.
               </motion.p>
 
               <motion.div
@@ -69,7 +69,7 @@ export function CTASection() {
                   asChild
                   size="lg"
                   variant="outline"
-                  className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10"
+                  className="border-primary-foreground/30 text-black hover:bg-primary-foreground/10 hover:text-black"
                 >
                   <Link to="/contact">Talk to an Expert</Link>
                 </Button>

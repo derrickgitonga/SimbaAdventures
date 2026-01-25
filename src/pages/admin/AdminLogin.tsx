@@ -47,7 +47,7 @@ export default function AdminLogin() {
             Access Dashboard
           </Button>
         </form>
-        <p className="text-xs text-muted-foreground text-center mt-6">Demo password: simba2024</p>
+        <p className="text-xs text-muted-foreground text-center mt-6">Demo password: simba2026</p>
       </div>
     </div>
   );

@@ -9,7 +9,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | null>(null);
 
 
-const ADMIN_PASSWORD = 'simba2024';
+const ADMIN_PASSWORD = 'simba2026';
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {

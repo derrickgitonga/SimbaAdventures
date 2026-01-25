@@ -100,8 +100,8 @@ export const tours: Tour[] = [
       { day: 4, title: 'Summit Day', description: 'Early morning summit push to Point Lenana, descend to Mackinder\'s Camp.' },
       { day: 5, title: 'Descent & Departure', description: 'Final descent and transfer back to Nairobi.' }
     ],
-    nextDate: '2024-03-15',
-    registrationDeadline: '2024-03-10',
+    nextDate: '2026-03-15',
+    registrationDeadline: '2026-03-10',
     spotsLeft: 6,
     maxGroupSize: 12,
     views: 2847,
@@ -150,8 +150,8 @@ export const tours: Tour[] = [
       { day: 3, title: 'Migration Tracking', description: 'Early morning walk, afternoon game drive.' },
       { day: 4, title: 'Departure', description: 'Morning walk, fly back to Nairobi.' }
     ],
-    nextDate: '2024-02-28',
-    registrationDeadline: '2024-02-23',
+    nextDate: '2026-02-28',
+    registrationDeadline: '2026-02-23',
     spotsLeft: 4,
     maxGroupSize: 8,
     views: 3421,
@@ -196,8 +196,8 @@ export const tours: Tour[] = [
     itinerary: [
       { day: 1, title: 'Full Day Adventure', description: 'Early departure from Nairobi, full day cycling and gorge exploration, return by evening.' }
     ],
-    nextDate: '2024-02-10',
-    registrationDeadline: '2024-02-07',
+    nextDate: '2026-02-10',
+    registrationDeadline: '2026-02-07',
     spotsLeft: 15,
     maxGroupSize: 20,
     views: 5632,
@@ -252,8 +252,8 @@ export const tours: Tour[] = [
       { day: 7, title: 'Summit Day', description: 'Midnight start, summit Uhuru Peak.' },
       { day: 8, title: 'Mweka Gate', description: 'Final descent and celebration.' }
     ],
-    nextDate: '2024-04-01',
-    registrationDeadline: '2024-03-25',
+    nextDate: '2026-04-01',
+    registrationDeadline: '2026-03-25',
     spotsLeft: 3,
     maxGroupSize: 10,
     views: 1892,
@@ -298,8 +298,8 @@ export const tours: Tour[] = [
       { day: 1, title: 'Forest Trek', description: 'Trek to Karuru Falls and Chania Falls, overnight at Treetops.' },
       { day: 2, title: 'Moorland Exploration', description: 'Morning trek to Gura Falls, afternoon return.' }
     ],
-    nextDate: '2024-02-17',
-    registrationDeadline: '2024-02-14',
+    nextDate: '2026-02-17',
+    registrationDeadline: '2026-02-14',
     spotsLeft: 8,
     maxGroupSize: 12,
     views: 1456,
@@ -350,8 +350,8 @@ export const tours: Tour[] = [
       { day: 6, title: 'South Island', description: 'Boat trip to South Island.' },
       { day: 7, title: 'Return Journey', description: 'Fly back to Nairobi.' }
     ],
-    nextDate: '2024-05-10',
-    registrationDeadline: '2024-05-03',
+    nextDate: '2026-05-10',
+    registrationDeadline: '2026-05-03',
     spotsLeft: 5,
     maxGroupSize: 8,
     views: 2134,
@@ -370,13 +370,13 @@ export const bookings: Booking[] = [
     customerName: 'John Mwangi',
     customerEmail: 'john.mwangi@email.com',
     customerPhone: '+254 712 345 678',
-    bookingDate: '2024-01-15',
-    tripDate: '2024-03-15',
+    bookingDate: '2026-01-15',
+    tripDate: '2026-03-15',
     participants: 2,
     totalAmount: 2598,
     status: 'Confirmed',
     paymentStatus: 'Paid',
-    createdAt: '2024-01-15T10:30:00Z'
+    createdAt: '2026-01-15T10:30:00Z'
   },
   {
     id: 'B002',
@@ -385,13 +385,13 @@ export const bookings: Booking[] = [
     customerName: 'Sarah Johnson',
     customerEmail: 'sarah.j@email.com',
     customerPhone: '+1 555 123 4567',
-    bookingDate: '2024-01-18',
-    tripDate: '2024-02-28',
+    bookingDate: '2026-01-18',
+    tripDate: '2026-02-28',
     participants: 4,
     totalAmount: 3596,
     status: 'Confirmed',
     paymentStatus: 'Paid',
-    createdAt: '2024-01-18T14:45:00Z'
+    createdAt: '2026-01-18T14:45:00Z'
   },
   {
     id: 'B003',
@@ -400,13 +400,13 @@ export const bookings: Booking[] = [
     customerName: 'Michael Chen',
     customerEmail: 'mchen@email.com',
     customerPhone: '+86 138 0000 0000',
-    bookingDate: '2024-01-20',
-    tripDate: '2024-02-10',
+    bookingDate: '2026-01-20',
+    tripDate: '2026-02-10',
     participants: 6,
     totalAmount: 534,
     status: 'Pending',
     paymentStatus: 'Pending',
-    createdAt: '2024-01-20T09:15:00Z'
+    createdAt: '2026-01-20T09:15:00Z'
   },
   {
     id: 'B004',
@@ -415,13 +415,13 @@ export const bookings: Booking[] = [
     customerName: 'Emma Wilson',
     customerEmail: 'emma.w@email.com',
     customerPhone: '+44 7700 000000',
-    bookingDate: '2024-01-22',
-    tripDate: '2024-04-01',
+    bookingDate: '2026-01-22',
+    tripDate: '2026-04-01',
     participants: 1,
     totalAmount: 2899,
     status: 'Confirmed',
     paymentStatus: 'Paid',
-    createdAt: '2024-01-22T16:20:00Z'
+    createdAt: '2026-01-22T16:20:00Z'
   },
   {
     id: 'B005',
@@ -430,32 +430,32 @@ export const bookings: Booking[] = [
     customerName: 'David Ochieng',
     customerEmail: 'dochieng@email.com',
     customerPhone: '+254 722 000 000',
-    bookingDate: '2024-01-25',
-    tripDate: '2024-05-10',
+    bookingDate: '2026-01-25',
+    tripDate: '2026-05-10',
     participants: 3,
     totalAmount: 5697,
     status: 'Pending',
     paymentStatus: 'Pending',
-    createdAt: '2024-01-25T11:00:00Z'
+    createdAt: '2026-01-25T11:00:00Z'
   }
 ];
 
 
 export const analyticsData: AnalyticsData[] = [
-  { date: '2024-01-01', pageViews: 1234, uniqueVisitors: 456, inquiries: 12, bookings: 3 },
-  { date: '2024-01-02', pageViews: 1567, uniqueVisitors: 523, inquiries: 15, bookings: 4 },
-  { date: '2024-01-03', pageViews: 1345, uniqueVisitors: 489, inquiries: 11, bookings: 2 },
-  { date: '2024-01-04', pageViews: 1890, uniqueVisitors: 634, inquiries: 18, bookings: 5 },
-  { date: '2024-01-05', pageViews: 2134, uniqueVisitors: 712, inquiries: 22, bookings: 6 },
-  { date: '2024-01-06', pageViews: 2567, uniqueVisitors: 834, inquiries: 28, bookings: 8 },
-  { date: '2024-01-07', pageViews: 2234, uniqueVisitors: 756, inquiries: 25, bookings: 7 },
-  { date: '2024-01-08', pageViews: 1876, uniqueVisitors: 612, inquiries: 19, bookings: 5 },
-  { date: '2024-01-09', pageViews: 1654, uniqueVisitors: 543, inquiries: 14, bookings: 4 },
-  { date: '2024-01-10', pageViews: 1987, uniqueVisitors: 678, inquiries: 21, bookings: 6 },
-  { date: '2024-01-11', pageViews: 2345, uniqueVisitors: 789, inquiries: 26, bookings: 7 },
-  { date: '2024-01-12', pageViews: 2678, uniqueVisitors: 867, inquiries: 31, bookings: 9 },
-  { date: '2024-01-13', pageViews: 2890, uniqueVisitors: 923, inquiries: 35, bookings: 10 },
-  { date: '2024-01-14', pageViews: 2456, uniqueVisitors: 812, inquiries: 27, bookings: 8 },
+  { date: '2026-01-01', pageViews: 1234, uniqueVisitors: 456, inquiries: 12, bookings: 3 },
+  { date: '2026-01-02', pageViews: 1567, uniqueVisitors: 523, inquiries: 15, bookings: 4 },
+  { date: '2026-01-03', pageViews: 1345, uniqueVisitors: 489, inquiries: 11, bookings: 2 },
+  { date: '2026-01-04', pageViews: 1890, uniqueVisitors: 634, inquiries: 18, bookings: 5 },
+  { date: '2026-01-05', pageViews: 2134, uniqueVisitors: 712, inquiries: 22, bookings: 6 },
+  { date: '2026-01-06', pageViews: 2567, uniqueVisitors: 834, inquiries: 28, bookings: 8 },
+  { date: '2026-01-07', pageViews: 2234, uniqueVisitors: 756, inquiries: 25, bookings: 7 },
+  { date: '2026-01-08', pageViews: 1876, uniqueVisitors: 612, inquiries: 19, bookings: 5 },
+  { date: '2026-01-09', pageViews: 1654, uniqueVisitors: 543, inquiries: 14, bookings: 4 },
+  { date: '2026-01-10', pageViews: 1987, uniqueVisitors: 678, inquiries: 21, bookings: 6 },
+  { date: '2026-01-11', pageViews: 2345, uniqueVisitors: 789, inquiries: 26, bookings: 7 },
+  { date: '2026-01-12', pageViews: 2678, uniqueVisitors: 867, inquiries: 31, bookings: 9 },
+  { date: '2026-01-13', pageViews: 2890, uniqueVisitors: 923, inquiries: 35, bookings: 10 },
+  { date: '2026-01-14', pageViews: 2456, uniqueVisitors: 812, inquiries: 27, bookings: 8 },
 ];
 
 
