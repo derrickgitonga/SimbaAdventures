@@ -12,10 +12,11 @@ import {
   Share2,
   Heart,
   ArrowLeft,
+  Loader2,
 } from 'lucide-react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
-import { tours } from '@/data/mockData';
+import { useTour } from '@/hooks/useTours';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { CountdownTimer } from '@/components/CountdownTimer';
@@ -29,9 +30,20 @@ const difficultyColors = {
 
 export default function TourDetail() {
   const { slug } = useParams();
-  const tour = tours.find((t) => t.slug === slug);
+  const { data: tour, isLoading, error } = useTour(slug);
 
-  if (!tour) {
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <Loader2 className="w-12 h-12 animate-spin text-accent mx-auto mb-4" />
+          <p className="text-muted-foreground">Loading adventure...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !tour) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">

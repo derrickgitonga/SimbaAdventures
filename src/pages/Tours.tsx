@@ -1,17 +1,19 @@
 import { useState, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Search, SlidersHorizontal, X } from 'lucide-react';
+import { Search, SlidersHorizontal, X, Loader2 } from 'lucide-react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { TourCard } from '@/components/TourCard';
-import { tours, categories, difficultyLevels } from '@/data/mockData';
+import { categories, difficultyLevels } from '@/data/mockData';
+import { useTours } from '@/hooks/useTours';
 import { Button } from '@/components/ui/button';
 
 export default function Tours() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [showFilters, setShowFilters] = useState(false);
-  
+  const { data: tours, isLoading, error } = useTours();
+
   const searchQuery = searchParams.get('search') || '';
   const selectedCategory = searchParams.get('category') || 'All Adventures';
   const selectedDifficulty = searchParams.get('difficulty') || '';
@@ -32,6 +34,7 @@ export default function Tours() {
   };
 
   const filteredTours = useMemo(() => {
+    if (!tours) return [];
     let result = [...tours];
 
     // Search filter
@@ -72,14 +75,14 @@ export default function Tours() {
     }
 
     return result;
-  }, [searchQuery, selectedCategory, selectedDifficulty, sortBy]);
+  }, [tours, searchQuery, selectedCategory, selectedDifficulty, sortBy]);
 
   const hasActiveFilters = searchQuery || selectedCategory !== 'All Adventures' || selectedDifficulty;
 
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      
+
       {/* Hero Banner */}
       <section className="pt-24 pb-12 md:pt-32 md:pb-16 bg-primary relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
@@ -251,14 +254,34 @@ export default function Tours() {
             </div>
           )}
 
+          {/* Loading State */}
+          {isLoading && (
+            <div className="flex justify-center items-center py-16">
+              <Loader2 className="w-8 h-8 animate-spin text-accent" />
+              <span className="ml-3 text-lg text-muted-foreground">Loading adventures...</span>
+            </div>
+          )}
+
+          {/* Error State */}
+          {error && (
+            <div className="text-center py-16">
+              <p className="text-destructive text-lg mb-4">
+                Failed to load adventures. Please try again later.
+              </p>
+              <Button onClick={() => window.location.reload()} variant="outline">
+                Retry
+              </Button>
+            </div>
+          )}
+
           {/* Tours Grid */}
-          {filteredTours.length > 0 ? (
+          {!isLoading && !error && filteredTours.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredTours.map((tour, index) => (
                 <TourCard key={tour.id} tour={tour} index={index} />
               ))}
             </div>
-          ) : (
+          ) : !isLoading && !error && filteredTours.length === 0 ? (
             <div className="text-center py-16">
               <p className="text-muted-foreground text-lg mb-4">
                 No adventures found matching your criteria.
@@ -267,7 +290,7 @@ export default function Tours() {
                 Clear Filters
               </Button>
             </div>
-          )}
+          ) : null}
         </div>
       </section>
 
