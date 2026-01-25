@@ -278,7 +278,7 @@ export default function Tours() {
           {!isLoading && !error && filteredTours.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredTours.map((tour, index) => (
-                <TourCard key={tour.id} tour={tour} index={index} />
+                <TourCard key={tour._id || tour.slug} tour={tour} index={index} />
               ))}
             </div>
           ) : !isLoading && !error && filteredTours.length === 0 ? (

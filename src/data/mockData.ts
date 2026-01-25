@@ -1,6 +1,7 @@
 
 export interface Tour {
-  id: string;
+  _id?: string;
+  id?: string;
   title: string;
   slug: string;
   location: string;

@@ -1,31 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
-import { supabase } from '@/lib/supabase';
 import type { AnalyticsData } from '@/data/mockData';
 
-// Convert database row to AnalyticsData type
-function mapAnalyticsFromDB(analytics: any): AnalyticsData {
-    return {
-        date: analytics.date,
-        pageViews: analytics.page_views,
-        uniqueVisitors: analytics.unique_visitors,
-        inquiries: analytics.inquiries,
-        bookings: analytics.bookings,
-    };
-}
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
-// Fetch analytics data
 export function useAnalytics(days = 14) {
     return useQuery({
         queryKey: ['analytics', days],
         queryFn: async () => {
-            const { data, error } = await supabase
-                .from('analytics_data')
-                .select('*')
-                .order('date', { ascending: true })
-                .limit(days);
-
-            if (error) throw error;
-            return data.map(mapAnalyticsFromDB);
+            const response = await fetch(`${API_URL}/analytics?days=${days}`);
+            if (!response.ok) throw new Error('Failed to fetch analytics');
+            return response.json() as Promise<AnalyticsData[]>;
         },
     });
 }
