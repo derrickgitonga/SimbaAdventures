@@ -31,7 +31,6 @@ const LocalImpact = () => {
         <div className="min-h-screen">
             <Header />
             <main>
-                {/* Hero Section */}
                 <section className="relative py-20 md:py-32 bg-gradient-to-br from-accent/10 to-background">
                     <div className="container mx-auto px-4">
                         <motion.div
@@ -52,7 +51,6 @@ const LocalImpact = () => {
                     </div>
                 </section>
 
-                {/* Initiatives Grid */}
                 <section className="py-16 md:py-24 bg-background">
                     <div className="container mx-auto px-4">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
@@ -80,7 +78,6 @@ const LocalImpact = () => {
                     </div>
                 </section>
 
-                {/* Detailed Content */}
                 <section className="py-16 md:py-24 bg-muted/30">
                     <div className="container mx-auto px-4">
                         <div className="max-w-4xl mx-auto">

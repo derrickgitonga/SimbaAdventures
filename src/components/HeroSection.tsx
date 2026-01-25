@@ -23,7 +23,6 @@ export function HeroSection() {
 
   return (
     <section className="relative min-h-[90vh] flex items-start justify-center overflow-hidden pt-24 md:pt-32">
-      {/* Background Video */}
       <video
         ref={videoRef}
         autoPlay
@@ -36,10 +35,8 @@ export function HeroSection() {
         <source src={videos[currentVideo]} type="video/mp4" />
       </video>
 
-      {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/60" />
 
-      {/* Minimal Content - Just Logo/Brand */}
       <div className="relative z-10 container mx-auto px-4 text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -47,7 +44,6 @@ export function HeroSection() {
           transition={{ duration: 0.8 }}
           className="max-w-4xl mx-auto"
         >
-          {/* Main Heading */}
           <h1 className="font-heading font-black text-5xl md:text-7xl lg:text-8xl text-white mb-4 leading-tight">
             Discover the
             <span className="block text-accent">Wild Heart of Africa</span>
