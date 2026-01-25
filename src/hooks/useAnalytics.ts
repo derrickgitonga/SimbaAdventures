@@ -1,7 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import type { AnalyticsData } from '@/data/mockData';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const isDev = import.meta.env.DEV;
+const API_URL = isDev ? 'http://localhost:5000/api' : '/api';
 
 export function useAnalytics(days = 14) {
     return useQuery({
