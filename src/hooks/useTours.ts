@@ -1,17 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import type { Tour } from '@/data/mockData';
 
-const getApiUrl = () => {
-  if (import.meta.env.VITE_API_URL) {
-    return import.meta.env.VITE_API_URL;
-  }
-  if (typeof window !== 'undefined' && window.location.hostname !== 'localhost') {
-    return `http://${window.location.hostname}:5000/api`;
-  }
-  return 'http://localhost:5000/api';
-};
-
-const API_URL = getApiUrl();
+const API_URL = '/api';
 
 export function useTours() {
   return useQuery({
