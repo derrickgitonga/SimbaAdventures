@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
@@ -20,6 +21,7 @@ import { useTour } from '@/hooks/useTours';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { CountdownTimer } from '@/components/CountdownTimer';
+import { BookingModal } from '@/components/BookingModal';
 
 const difficultyColors = {
   Easy: 'bg-green-500/10 text-green-600 border-green-500/30',
@@ -31,6 +33,7 @@ const difficultyColors = {
 export default function TourDetail() {
   const { slug } = useParams();
   const { data: tour, isLoading, error } = useTour(slug);
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
 
   if (isLoading) {
     return (
@@ -306,7 +309,10 @@ export default function TourDetail() {
 
                 {/* CTA Buttons */}
                 <div className="space-y-3">
-                  <Button className="w-full btn-adventure py-6 text-lg">
+                  <Button
+                    className="w-full btn-adventure py-6 text-lg"
+                    onClick={() => setIsBookingOpen(true)}
+                  >
                     Book This Adventure
                   </Button>
                   <Button variant="outline" className="w-full py-6">
@@ -336,6 +342,14 @@ export default function TourDetail() {
       </section>
 
       <Footer />
+
+      {tour && (
+        <BookingModal
+          tour={tour}
+          isOpen={isBookingOpen}
+          onClose={() => setIsBookingOpen(false)}
+        />
+      )}
     </div>
   );
 }
