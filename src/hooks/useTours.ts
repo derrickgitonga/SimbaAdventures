@@ -22,7 +22,7 @@ export function useTour(slug: string | undefined) {
     queryKey: ['tour', slug],
     queryFn: async () => {
       if (!slug) return null;
-      const response = await fetch(`${API_URL}/tours/slug/${slug}`);
+      const response = await fetch(`${API_URL}/tours/${slug}`);
       if (!response.ok) throw new Error('Tour not found');
       return response.json() as Promise<Tour>;
     },

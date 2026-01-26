@@ -1,5 +1,5 @@
-import dbConnect from '../../_lib/mongodb.js';
-import Tour from '../../_lib/models/Tour.js';
+import dbConnect from '../_lib/mongodb.js';
+import Tour from '../_lib/models/Tour.js';
 
 export default async function handler(req, res) {
     res.setHeader('Access-Control-Allow-Origin', '*');
