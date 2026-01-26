@@ -56,7 +56,10 @@ app.get('/api/tours/featured', async (req, res) => {
     }
 });
 
-app.get('/api/tours/slug/:slug', async (req, res) => {
+app.get('/api/tours/:slug', async (req, res) => {
+    if (req.params.slug === 'featured') {
+        return res.status(400).json({ error: 'Use /api/tours/featured endpoint' });
+    }
     try {
         const tours = await getToursFromCache();
         const tour = tours.find(t => t.slug === req.params.slug);
