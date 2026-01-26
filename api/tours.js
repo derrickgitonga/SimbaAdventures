@@ -1,5 +1,5 @@
-import dbConnect from '../_lib/mongodb.js';
-import Tour from '../_lib/models/Tour.js';
+import dbConnect from './_lib/mongodb.js';
+import Tour from './_lib/models/Tour.js';
 
 export default async function handler(req, res) {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -13,12 +13,27 @@ export default async function handler(req, res) {
         return res.status(405).json({ error: 'Method not allowed' });
     }
 
+    const { slug, featured, limit } = req.query;
+
     try {
         await dbConnect();
+
+        if (featured === 'true') {
+            const tours = await Tour.find({ featured: true }).limit(parseInt(limit) || 3).lean();
+            return res.status(200).json(tours);
+        }
+
+        if (slug) {
+            const tour = await Tour.findOne({ slug }).lean();
+            if (!tour) {
+                return res.status(404).json({ error: 'Tour not found' });
+            }
+            return res.status(200).json(tour);
+        }
+
         const tours = await Tour.find().sort({ createdAt: -1 }).lean();
         res.status(200).json(tours);
     } catch (error) {
-        console.error('API Error:', error);
         res.status(500).json({ error: error.message });
     }
 }

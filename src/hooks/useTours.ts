@@ -22,7 +22,7 @@ export function useTour(slug: string | undefined) {
     queryKey: ['tour', slug],
     queryFn: async () => {
       if (!slug) return null;
-      const response = await fetch(`${API_URL}/tours/${slug}`);
+      const response = await fetch(`${API_URL}/tours?slug=${slug}`);
       if (!response.ok) throw new Error('Tour not found');
       return response.json() as Promise<Tour>;
     },
@@ -36,7 +36,7 @@ export function useFeaturedTours(limit = 3) {
   return useQuery({
     queryKey: ['tours', 'featured', limit],
     queryFn: async () => {
-      const response = await fetch(`${API_URL}/tours/featured?limit=${limit}`);
+      const response = await fetch(`${API_URL}/tours?featured=true&limit=${limit}`);
       if (!response.ok) throw new Error('Failed to fetch featured tours');
       return response.json() as Promise<Tour[]>;
     },

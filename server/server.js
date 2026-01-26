@@ -37,36 +37,25 @@ async function getToursFromCache() {
 }
 
 app.get('/api/tours', async (req, res) => {
-    try {
-        const tours = await getToursFromCache();
-        res.json(tours);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
+    const { slug, featured, limit } = req.query;
 
-app.get('/api/tours/featured', async (req, res) => {
     try {
-        const limit = parseInt(req.query.limit) || 3;
         const tours = await getToursFromCache();
-        const featured = tours.filter(t => t.featured).slice(0, limit);
-        res.json(featured);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
 
-app.get('/api/tours/:slug', async (req, res) => {
-    if (req.params.slug === 'featured') {
-        return res.status(400).json({ error: 'Use /api/tours/featured endpoint' });
-    }
-    try {
-        const tours = await getToursFromCache();
-        const tour = tours.find(t => t.slug === req.params.slug);
-        if (!tour) {
-            return res.status(404).json({ error: 'Tour not found' });
+        if (featured === 'true') {
+            const featuredTours = tours.filter(t => t.featured).slice(0, parseInt(limit) || 3);
+            return res.json(featuredTours);
         }
-        res.json(tour);
+
+        if (slug) {
+            const tour = tours.find(t => t.slug === slug);
+            if (!tour) {
+                return res.status(404).json({ error: 'Tour not found' });
+            }
+            return res.json(tour);
+        }
+
+        res.json(tours);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -103,5 +92,4 @@ app.get('/api/analytics', async (req, res) => {
 
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server running on port ${PORT}`);
-    console.log(`API available at http://192.168.0.106:${PORT}/api`);
 });
