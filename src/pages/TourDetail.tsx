@@ -22,6 +22,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { CountdownTimer } from '@/components/CountdownTimer';
 import { BookingModal } from '@/components/BookingModal';
+import { OptimizedImage } from '@/components/ui/optimized-image';
 
 const difficultyColors = {
   Easy: 'bg-green-500/10 text-green-600 border-green-500/30',
@@ -65,10 +66,12 @@ export default function TourDetail() {
 
       {/* Hero Image */}
       <section className="relative h-[50vh] md:h-[60vh] mt-16 md:mt-20">
-        <img
+        <OptimizedImage
           src={tour.image}
           alt={tour.title}
           className="w-full h-full object-cover"
+          wrapperClassName="w-full h-full"
+          loading="eager"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
 

@@ -4,6 +4,7 @@ import { MapPin, Clock, Users, Star, TrendingUp } from 'lucide-react';
 import { Tour } from '@/data/mockData';
 import { Badge } from '@/components/ui/badge';
 import { CountdownTimer } from '@/components/CountdownTimer';
+import { OptimizedImage } from '@/components/ui/optimized-image';
 
 interface TourCardProps {
   tour: Tour;
@@ -31,9 +32,10 @@ export function TourCard({ tour, index = 0 }: TourCardProps) {
       >
         {/* Image Container */}
         <div className="relative aspect-[4/3] overflow-hidden">
-          <img
+          <OptimizedImage
             src={tour.image}
             alt={tour.title}
+            wrapperClassName="h-full w-full"
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
           />
           {/* Overlay */}
