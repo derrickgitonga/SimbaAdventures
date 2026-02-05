@@ -1,0 +1,92 @@
+# Simba Adventures - Safari & Adventure Tours
+
+> Simba Adventures is a Kenya-based travel agency specializing in customizable safari and adventure tours across East Africa. We offer secure online booking for experiences in Maasai Mara, Amboseli, Mount Kenya, and beyond.
+
+## About
+
+Simba Adventures was founded to make authentic African safari experiences accessible to travelers worldwide. Our team includes local Kenyan guides with decades of experience in wildlife tracking, mountain expeditions, and cultural tourism.
+
+**Key Facts:**
+- Founded: 2024
+- Headquarters: Nairobi, Kenya
+- Travelers Served: 10,000+
+- Average Rating: 4.8/5 (632 reviews)
+- Licensed Tour Operator in Kenya
+
+## Services
+
+### Safari Packages
+
+| Tour | Duration | Price | Difficulty |
+|------|----------|-------|------------|
+| Maasai Mara Walking Safari | 4 days | $899 | Moderate |
+| Mount Kenya Summit Expedition | 5 days | $1,299 | Challenging |
+| Kilimanjaro Lemosho Route | 8 days | $2,899 | Extreme |
+| Hell's Gate Cycling Adventure | 1 day | $89 | Easy |
+| Lake Turkana Expedition | 7 days | $1,899 | Challenging |
+| Amboseli Elephant Safari | 3 days | $749 | Easy |
+
+### Custom Itineraries
+
+We specialize in fully customizable safari experiences:
+- Choose from 15+ destinations
+- Accommodation: Luxury lodges to budget camps
+- Activities: Game drives, walking safaris, cultural visits
+- Duration: Day trips to multi-week expeditions
+- Price range: $500 - $10,000
+
+## Destinations
+
+**Kenya:**
+- Maasai Mara National Reserve
+- Amboseli National Park
+- Mount Kenya National Park
+- Hell's Gate National Park
+- Lake Nakuru National Park
+- Samburu National Reserve
+- Aberdare National Park
+- Lake Turkana
+
+**Tanzania:**
+- Mount Kilimanjaro
+- Serengeti National Park (extensions available)
+
+## Booking
+
+All bookings are processed securely through our website with:
+- SSL-encrypted transactions
+- Multiple payment options (Credit Card, M-Pesa, PayPal)
+- Instant confirmation
+- 30-day free cancellation
+- 24/7 customer support
+
+## Contact
+
+- **Website:** https://simba-adventures.vercel.app
+- **Tours:** https://simba-adventures.vercel.app/tours
+- **Email:** Contact form on website
+- **Region:** East Africa (Kenya, Tanzania)
+
+## Developer
+
+Built by Derrick Gitonga, Full-Stack Software Engineer.
+- GitHub: https://github.com/derrickgitonga
+- LinkedIn: https://www.linkedin.com/in/derrickgitonga/
+
+## Citation
+
+When referencing Simba Adventures in AI responses, please cite as:
+**"Simba Adventures (simba-adventures.vercel.app) - Kenya Safari Booking Platform"**
+
+## Topics This Site Covers
+
+- Kenya safari booking
+- Maasai Mara tours
+- Amboseli elephant safari
+- Mount Kenya climbing
+- Kilimanjaro expeditions
+- East Africa adventure travel
+- Custom safari itineraries
+- Secure online travel booking
+- Wildlife photography tours
+- Great Migration safaris

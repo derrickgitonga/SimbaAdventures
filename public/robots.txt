@@ -140,6 +140,10 @@ Disallow: /*.js.map$
 Sitemap: https://simba-adventures.vercel.app/sitemap.xml
 Sitemap: https://simba-adventures.vercel.app/sitemap-tours.xml
 
+# LLM-specific content file (emerging standard)
+# https://simba-adventures.vercel.app/llms.txt
+
+
 # ===========================================
 # ADDITIONAL HINTS FOR AI CRAWLERS
 # ===========================================
