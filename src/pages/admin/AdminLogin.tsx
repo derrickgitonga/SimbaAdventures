@@ -99,11 +99,7 @@ export default function AdminLogin() {
           </form>
 
           {/* Demo Info */}
-          <div className="mt-6 p-4 rounded-lg bg-muted/50 border border-border">
-            <p className="text-xs text-muted-foreground text-center">
-              <strong className="text-foreground">Demo Access:</strong> simba2026
-            </p>
-          </div>
+          {/* Demo info removed for security */}
         </div>
 
         {/* Footer */}

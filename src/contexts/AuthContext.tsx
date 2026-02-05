@@ -77,20 +77,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
 
       return false;
-    } catch {
-      if (password === 'simba2026') {
-        const fallbackUser = {
-          id: 'admin',
-          email: 'admin@simba-adventures.com',
-          name: 'Administrator',
-          role: 'super_admin'
-        };
-        setUser(fallbackUser);
-        setIsAuthenticated(true);
-        sessionStorage.setItem('admin_auth', 'true');
-        sessionStorage.setItem('admin_user', JSON.stringify(fallbackUser));
-        return true;
-      }
+    } catch (error) {
+      console.error('Login error:', error);
       return false;
     }
   };
