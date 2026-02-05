@@ -158,6 +158,19 @@ SimbaAdventures/
 - 💼 LinkedIn: [Derrick Gitonga](https://www.linkedin.com/in/derrickgitonga/)
 - 🌐 Portfolio: [derrickgitonga.dev](https://derrickgitonga.dev)
 
+### 🔐 Admin Portal Access
+
+The secure admin dashboard includes POS, booking management, and activity logs.
+
+- **Login URL:** `/portal-access-v1/login`
+- **Default Password:** `simba2026` (Change via `ADMIN_PASSWORD` env var)
+- **Features:**
+  - 📊 Real-time Dashboard & Analytics
+  - 💰 Point of Sale (POS) for walk-in bookings
+  - 📝 Activity Logging & Audit Trails
+  - 🌍 Tour & Booking Management
+
+
 ### About the Developer
 
 Full-stack Software Engineer specializing in React, Node.js, and TypeScript. Creator of Simba Adventures — an e-commerce platform enabling secure, customizable safari bookings in Kenya and East Africa. Passionate about building performant, accessible web applications that solve real-world problems.

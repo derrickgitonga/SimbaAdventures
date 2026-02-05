@@ -1,18 +1,16 @@
 {
-    "framework": "vite",
-    "buildCommand": "npm run build",
-    "outputDirectory": "dist",
-    "routes": [
+    "version": 2,
+    "rewrites": [
         {
-            "handle": "filesystem"
+            "source": "/api/(.*)",
+            "destination": "/api/index.js"
         },
         {
-            "src": "/api/(.*)",
-            "dest": "/api/$1"
-        },
-        {
-            "src": "/(.*)",
-            "dest": "/index.html"
+            "source": "/(.*)",
+            "destination": "/index.html"
         }
-    ]
+    ],
+    "env": {
+        "NODE_VERSION": "20.x"
+    }
 }
