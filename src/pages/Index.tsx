@@ -6,6 +6,7 @@ import { FeaturedTours } from '@/components/FeaturedTours';
 import { WhyChooseUs } from '@/components/WhyChooseUs';
 import { Testimonials } from '@/components/Testimonials';
 import { CTASection } from '@/components/CTASection';
+import { GEOContentSection } from '@/components/GEOContentSection';
 
 const Index = () => {
   return (
@@ -15,6 +16,7 @@ const Index = () => {
         <HeroSection />
         <SearchSection />
         <FeaturedTours />
+        <GEOContentSection />
         <WhyChooseUs />
         <Testimonials />
         <CTASection />

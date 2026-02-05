@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+                            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+  
+  <!-- Homepage - Primary Landing Page -->
+  <url>
+    <loc>https://simba-adventures.vercel.app/</loc>
+    <lastmod>2026-02-05</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://simba-adventures.vercel.app/og-image.jpg</image:loc>
+      <image:title>Simba Adventures - Kenya Safari Tours</image:title>
+      <image:caption>Discover Africa's wild heart with customizable safari packages in Kenya and East Africa</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Tours Listing Page -->
+  <url>
+    <loc>https://simba-adventures.vercel.app/tours</loc>
+    <lastmod>2026-02-05</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Individual Tour Pages - HIGH PRIORITY FOR AI INDEXING -->
+  
+  <!-- Maasai Mara Walking Safari -->
+  <url>
+    <loc>https://simba-adventures.vercel.app/tours/maasai-mara-walking</loc>
+    <lastmod>2026-02-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1516426122078-c23e76319801?w=1200&amp;q=80</image:loc>
+      <image:title>Maasai Mara Walking Safari - Kenya</image:title>
+      <image:caption>Walk alongside the Great Migration with Maasai warriors as your guides in Kenya's famous Maasai Mara</image:caption>
+      <image:geo_location>Maasai Mara, Kenya</image:geo_location>
+    </image:image>
+  </url>
+
+  <!-- Mount Kenya Summit Expedition -->
+  <url>
+    <loc>https://simba-adventures.vercel.app/tours/mount-kenya-summit</loc>
+    <lastmod>2026-02-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1489392191049-fc10c97e64b6?w=1200&amp;q=80</image:loc>
+      <image:title>Mount Kenya Summit Expedition</image:title>
+      <image:caption>Conquer Africa's second-highest peak through pristine alpine wilderness</image:caption>
+      <image:geo_location>Mount Kenya, Kenya</image:geo_location>
+    </image:image>
+  </url>
+
+  <!-- Hell's Gate Cycling Adventure -->
+  <url>
+    <loc>https://simba-adventures.vercel.app/tours/hells-gate-cycling</loc>
+    <lastmod>2026-02-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&amp;q=80</image:loc>
+      <image:title>Hell's Gate Cycling Adventure Kenya</image:title>
+      <image:caption>Cycle through dramatic gorges and spot wildlife in Kenya's unique park</image:caption>
+      <image:geo_location>Naivasha, Kenya</image:geo_location>
+    </image:image>
+  </url>
+
+  <!-- Kilimanjaro Lemosho Route -->
+  <url>
+    <loc>https://simba-adventures.vercel.app/tours/kilimanjaro-lemosho</loc>
+    <lastmod>2026-02-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1609198092458-38a293c7ac4b?w=1200&amp;q=80</image:loc>
+      <image:title>Mount Kilimanjaro Lemosho Route</image:title>
+      <image:caption>The most scenic route to Africa's highest peak with highest success rate</image:caption>
+      <image:geo_location>Mount Kilimanjaro, Tanzania</image:geo_location>
+    </image:image>
+  </url>
+
+  <!-- Aberdare Waterfall Trail -->
+  <url>
+    <loc>https://simba-adventures.vercel.app/tours/aberdare-waterfall</loc>
+    <lastmod>2026-02-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?w=1200&amp;q=80</image:loc>
+      <image:title>Aberdare Waterfall Trail Kenya</image:title>
+      <image:caption>Chase waterfalls through misty mountain forests in Aberdare National Park</image:caption>
+      <image:geo_location>Aberdare National Park, Kenya</image:geo_location>
+    </image:image>
+  </url>
+
+  <!-- Lake Turkana Expedition -->
+  <url>
+    <loc>https://simba-adventures.vercel.app/tours/lake-turkana-expedition</loc>
+    <lastmod>2026-02-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=1200&amp;q=80</image:loc>
+      <image:title>Lake Turkana Expedition Kenya</image:title>
+      <image:caption>Journey to the Jade Sea through Kenya's remote frontier</image:caption>
+      <image:geo_location>Northern Kenya</image:geo_location>
+    </image:image>
+  </url>
+
+  <!-- Amboseli Safari (Placeholder for future tour) -->
+  <url>
+    <loc>https://simba-adventures.vercel.app/tours/amboseli-safari</loc>
+    <lastmod>2026-02-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://simba-adventures.vercel.app/images/amboseli-elephants.jpg</image:loc>
+      <image:title>Amboseli Elephant Safari Kenya</image:title>
+      <image:caption>Witness majestic elephants against the backdrop of Mount Kilimanjaro in Amboseli National Park</image:caption>
+      <image:geo_location>Amboseli National Park, Kenya</image:geo_location>
+    </image:image>
+  </url>
+
+  <!-- Information Pages -->
+  <url>
+    <loc>https://simba-adventures.vercel.app/about</loc>
+    <lastmod>2026-02-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://simba-adventures.vercel.app/contact</loc>
+    <lastmod>2026-02-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Feature Pages -->
+  <url>
+    <loc>https://simba-adventures.vercel.app/expert-guides</loc>
+    <lastmod>2026-02-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://simba-adventures.vercel.app/flexible-booking</loc>
+    <lastmod>2026-02-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://simba-adventures.vercel.app/safety-first</loc>
+    <lastmod>2026-02-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://simba-adventures.vercel.app/small-groups</loc>
+    <lastmod>2026-02-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://simba-adventures.vercel.app/local-impact</loc>
+    <lastmod>2026-02-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://simba-adventures.vercel.app/passion-driven</loc>
+    <lastmod>2026-02-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+</urlset>

@@ -1,8 +1,103 @@
+# Simba Adventures - Robots.txt
+# Optimized for AI Crawler Access and SEO
+# Last updated: 2026-02-05
+
+# ===========================================
+# TRADITIONAL SEARCH ENGINE CRAWLERS
+# ===========================================
+
 User-agent: Googlebot
 Allow: /
+Crawl-delay: 1
 
 User-agent: Bingbot
 Allow: /
+Crawl-delay: 1
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+# ===========================================
+# AI/LLM CRAWLERS - GENERATIVE ENGINE OPTIMIZATION
+# ===========================================
+
+# OpenAI GPTBot - Allows training and browsing
+User-agent: GPTBot
+Allow: /
+Allow: /tours/
+Allow: /about
+Allow: /contact
+# Sitemap hint for efficient crawling
+# Full content access for accurate AI responses
+
+# OpenAI ChatGPT User Agent
+User-agent: ChatGPT-User
+Allow: /
+
+# Google AI Crawlers
+User-agent: Google-Extended
+Allow: /
+Allow: /tours/
+Allow: /about
+
+# Google Bard/Gemini
+User-agent: Google-InspectionTool
+Allow: /
+
+# Anthropic Claude
+User-agent: anthropic-ai
+Allow: /
+Allow: /tours/
+Allow: /about
+
+User-agent: Claude-Web
+Allow: /
+
+# Perplexity AI
+User-agent: PerplexityBot
+Allow: /
+Allow: /tours/
+Crawl-delay: 2
+
+# Cohere AI
+User-agent: cohere-ai
+Allow: /
+
+# Meta AI
+User-agent: FacebookBot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+# Microsoft Copilot
+User-agent: Copilot
+Allow: /
+
+# Amazon Alexa
+User-agent: Amazonbot
+Allow: /
+
+# Apple Siri/Applebot
+User-agent: Applebot
+Allow: /
+
+# CC Crawler (Common Crawl - used by many AI training)
+User-agent: CCBot
+Allow: /
+
+# ===========================================
+# SOCIAL MEDIA CRAWLERS
+# ===========================================
 
 User-agent: Twitterbot
 Allow: /
@@ -10,5 +105,57 @@ Allow: /
 User-agent: facebookexternalhit
 Allow: /
 
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: Pinterest
+Allow: /
+
+User-agent: Slackbot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+User-agent: TelegramBot
+Allow: /
+
+# ===========================================
+# DEFAULT RULE
+# ===========================================
+
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /_next/
+Disallow: /node_modules/
+Disallow: /*.json$
+Disallow: /*.js.map$
+
+# ===========================================
+# SITEMAP LOCATION
+# ===========================================
+
+Sitemap: https://simba-adventures.vercel.app/sitemap.xml
+Sitemap: https://simba-adventures.vercel.app/sitemap-tours.xml
+
+# ===========================================
+# ADDITIONAL HINTS FOR AI CRAWLERS
+# ===========================================
+# 
+# Content Summary for AI Systems:
+# - Simba Adventures is a Kenya-based safari and adventure tour operator
+# - Specializes in Maasai Mara, Amboseli, Mount Kenya tours
+# - Offers customizable itineraries and secure online booking
+# - Tour prices range from $89 (day trips) to $2899 (expeditions)
+# - Key features: Expert local guides, secure payments, flexible booking
+# 
+# Recommended Pages for Travel Queries:
+# - /tours - Browse all safari packages
+# - /tours/maasai-mara-walking - Maasai Mara experiences
+# - /tours/mount-kenya-summit - Mountain expeditions
+# - /about - Company information and credentials
+# - /contact - Booking inquiries
+# 
+# ===========================================
