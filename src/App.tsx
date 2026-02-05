@@ -19,6 +19,10 @@ import PassionDriven from "./pages/PassionDriven";
 import AdminLayout from "./pages/admin/AdminLayout";
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminPOS from "./pages/admin/AdminPOS";
+import AdminBookings from "./pages/admin/AdminBookings";
+import AdminActivityLogs from "./pages/admin/AdminActivityLogs";
+import AdminTours from "./pages/admin/AdminTours";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -44,10 +48,15 @@ const App = () => (
             <Route path="/local-impact" element={<LocalImpact />} />
             <Route path="/passion-driven" element={<PassionDriven />} />
 
-
+            {/* Admin Routes */}
             <Route path="/portal-access-v1/login" element={<AdminLogin />} />
             <Route path="/portal-access-v1" element={<AdminLayout />}>
               <Route index element={<AdminDashboard />} />
+              <Route path="pos" element={<AdminPOS />} />
+              <Route path="bookings" element={<AdminBookings />} />
+              <Route path="activity" element={<AdminActivityLogs />} />
+              <Route path="tours" element={<AdminTours />} />
+              <Route path="analytics" element={<AdminDashboard />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />
@@ -59,3 +68,4 @@ const App = () => (
 );
 
 export default App;
+

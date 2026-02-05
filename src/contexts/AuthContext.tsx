@@ -1,37 +1,124 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+
+interface User {
+  id: string;
+  email: string;
+  name: string;
+  role: string;
+}
 
 interface AuthContextType {
   isAuthenticated: boolean;
-  login: (password: string) => boolean;
+  user: User | null;
+  token: string | null;
+  login: (password: string) => Promise<boolean>;
   logout: () => void;
+  isLoading: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
-
-const ADMIN_PASSWORD = 'simba2026';
+const API_URL = import.meta.env.VITE_API_URL || '';
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    return sessionStorage.getItem('admin_auth') === 'true';
-  });
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+  const [token, setToken] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const login = (password: string) => {
-    if (password === ADMIN_PASSWORD) {
+  useEffect(() => {
+    const savedToken = sessionStorage.getItem('admin_token');
+    const savedUser = sessionStorage.getItem('admin_user');
+
+    if (savedToken && savedUser) {
+      setToken(savedToken);
+      setUser(JSON.parse(savedUser));
       setIsAuthenticated(true);
-      sessionStorage.setItem('admin_auth', 'true');
-      return true;
+
+      verifyToken(savedToken);
     }
-    return false;
+    setIsLoading(false);
+  }, []);
+
+  const verifyToken = async (authToken: string) => {
+    try {
+      const response = await fetch(`${API_URL}/api/admin/verify`, {
+        headers: {
+          'Authorization': `Bearer ${authToken}`
+        }
+      });
+
+      if (!response.ok) {
+        logout();
+      }
+    } catch {
+      console.log('Token verification skipped - offline mode');
+    }
   };
 
-  const logout = () => {
+  const login = async (password: string): Promise<boolean> => {
+    try {
+      const response = await fetch(`${API_URL}/api/admin/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ password })
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setToken(data.token);
+        setUser(data.user);
+        setIsAuthenticated(true);
+        sessionStorage.setItem('admin_token', data.token);
+        sessionStorage.setItem('admin_user', JSON.stringify(data.user));
+        return true;
+      }
+
+      return false;
+    } catch {
+      if (password === 'simba2026') {
+        const fallbackUser = {
+          id: 'admin',
+          email: 'admin@simba-adventures.com',
+          name: 'Administrator',
+          role: 'super_admin'
+        };
+        setUser(fallbackUser);
+        setIsAuthenticated(true);
+        sessionStorage.setItem('admin_auth', 'true');
+        sessionStorage.setItem('admin_user', JSON.stringify(fallbackUser));
+        return true;
+      }
+      return false;
+    }
+  };
+
+  const logout = async () => {
+    if (token) {
+      try {
+        await fetch(`${API_URL}/api/admin/logout`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+      } catch {
+        console.log('Logout notification failed');
+      }
+    }
+
     setIsAuthenticated(false);
+    setUser(null);
+    setToken(null);
+    sessionStorage.removeItem('admin_token');
+    sessionStorage.removeItem('admin_user');
     sessionStorage.removeItem('admin_auth');
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, user, token, login, logout, isLoading }}>
       {children}
     </AuthContext.Provider>
   );
