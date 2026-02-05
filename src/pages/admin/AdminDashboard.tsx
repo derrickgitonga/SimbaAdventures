@@ -40,6 +40,11 @@ export default function AdminDashboard() {
   useEffect(() => {
     fetchDashboardData();
     fetchPOSSummary();
+    const interval = setInterval(() => {
+      fetchDashboardData();
+      fetchPOSSummary();
+    }, 15000);
+    return () => clearInterval(interval);
   }, []);
 
   const fetchDashboardData = async () => {
@@ -281,10 +286,10 @@ export default function AdminDashboard() {
                     </td>
                     <td className="py-3">
                       <span className={`px-2 py-1 rounded-lg text-xs ${booking.status === 'Confirmed'
-                          ? 'bg-green-500/10 text-green-500'
-                          : booking.status === 'Cancelled'
-                            ? 'bg-red-500/10 text-red-500'
-                            : 'bg-yellow-500/10 text-yellow-500'
+                        ? 'bg-green-500/10 text-green-500'
+                        : booking.status === 'Cancelled'
+                          ? 'bg-red-500/10 text-red-500'
+                          : 'bg-yellow-500/10 text-yellow-500'
                         }`}>
                         {booking.status}
                       </span>

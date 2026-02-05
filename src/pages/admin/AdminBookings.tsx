@@ -54,6 +54,9 @@ export default function AdminBookings() {
 
     useEffect(() => {
         fetchBookings();
+        // Poll every 15 seconds to keep bookings up to date
+        const interval = setInterval(fetchBookings, 15000);
+        return () => clearInterval(interval);
     }, [page, filterStatus]);
 
     const fetchBookings = async () => {
@@ -249,10 +252,10 @@ export default function AdminBookings() {
                                             </td>
                                             <td className="p-4">
                                                 <span className={`text-xs px-2 py-1 rounded-lg ${booking.paymentStatus === 'Paid'
-                                                        ? 'bg-green-500/10 text-green-500'
-                                                        : booking.paymentStatus === 'Refunded'
-                                                            ? 'bg-red-500/10 text-red-500'
-                                                            : 'bg-yellow-500/10 text-yellow-500'
+                                                    ? 'bg-green-500/10 text-green-500'
+                                                    : booking.paymentStatus === 'Refunded'
+                                                        ? 'bg-red-500/10 text-red-500'
+                                                        : 'bg-yellow-500/10 text-yellow-500'
                                                     }`}>
                                                     {booking.paymentStatus}
                                                 </span>
