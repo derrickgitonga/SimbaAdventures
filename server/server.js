@@ -399,23 +399,10 @@ app.patch('/api/admin/bookings/:id', authenticateToken, async (req, res) => {
 
         await booking.save();
 
-        let action = 'UPDATE_BOOKING';
-        if (status === 'Confirmed' && oldStatus !== 'Confirmed') {
-            action = 'CONFIRM_BOOKING';
-        } else if (status === 'Cancelled' && oldStatus !== 'Cancelled') {
-            action = 'CANCEL_BOOKING';
-        }
-
-        await logActivity(req, action, `Updated booking: ${booking.customerName}`, {
+        await logActivity(req, 'UPDATE_BOOKING', `Updated booking status: ${booking.status}`, {
             adminId: req.user.id,
             entityType: 'booking',
-            entityId: booking._id.toString(),
-            metadata: {
-                oldStatus,
-                newStatus: status,
-                oldPaymentStatus,
-                newPaymentStatus: paymentStatus
-            }
+            entityId: booking._id.toString()
         });
 
         res.json(booking);
@@ -423,6 +410,10 @@ app.patch('/api/admin/bookings/:id', authenticateToken, async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 });
+
+
+
+
 
 app.delete('/api/admin/bookings/:id', authenticateToken, async (req, res) => {
     try {

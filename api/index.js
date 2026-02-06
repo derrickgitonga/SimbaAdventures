@@ -169,6 +169,14 @@ app.patch('/api/admin/bookings/:id', authenticateToken, async (req, res) => {
     res.json(booking);
 });
 
+app.delete('/api/admin/bookings/:id', authenticateToken, async (req, res) => {
+    try {
+        await Booking.findByIdAndDelete(req.params.id);
+        await logActivity(req, 'DELETE_BOOKING', `Deleted booking`, { adminId: req.user.id });
+        res.json({ success: true });
+    } catch (error) { res.status(500).json({ error: error.message }); }
+});
+
 // --- TOURS ---
 async function getTours() {
     if (toursCache && Date.now() - cacheTime < CACHE_DURATION) return toursCache;
@@ -179,6 +187,34 @@ async function getTours() {
 app.get('/api/tours', async (req, res) => {
     const tours = await getTours();
     res.json(tours);
+});
+
+app.post('/api/admin/tours', authenticateToken, async (req, res) => {
+    try {
+        const tour = new Tour(req.body);
+        await tour.save();
+        toursCache = null;
+        await logActivity(req, 'CREATE_TOUR', `Created tour: ${tour.title}`, { adminId: req.user.id });
+        res.status(201).json(tour);
+    } catch (error) { res.status(400).json({ error: error.message }); }
+});
+
+app.put('/api/admin/tours/:id', authenticateToken, async (req, res) => {
+    try {
+        const tour = await Tour.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        toursCache = null;
+        await logActivity(req, 'UPDATE_TOUR', `Updated tour`, { adminId: req.user.id });
+        res.json(tour);
+    } catch (error) { res.status(400).json({ error: error.message }); }
+});
+
+app.delete('/api/admin/tours/:id', authenticateToken, async (req, res) => {
+    try {
+        await Tour.findByIdAndDelete(req.params.id);
+        toursCache = null;
+        await logActivity(req, 'DELETE_TOUR', `Deleted tour`, { adminId: req.user.id });
+        res.json({ success: true });
+    } catch (error) { res.status(500).json({ error: error.message }); }
 });
 
 // --- POS ---

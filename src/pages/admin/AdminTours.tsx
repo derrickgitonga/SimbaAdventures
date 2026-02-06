@@ -133,9 +133,48 @@ export default function AdminTours() {
             difficulty: tour.difficulty,
             location: tour.location,
             maxGroupSize: tour.maxGroupSize,
-            featured: tour.featured
+            featured: tour.featured,
+            image: tour.image
         });
         setIsEditing(true);
+    };
+
+    const openCreateModal = () => {
+        setSelectedTour(null);
+        setEditForm({
+            title: '', description: '', price: 0, duration: '',
+            difficulty: 'Moderate', location: '', maxGroupSize: 10, featured: false, image: ''
+        });
+        setIsEditing(true);
+    };
+
+    const saveTour = async () => {
+        const method = selectedTour ? 'PUT' : 'POST';
+        const url = selectedTour
+            ? `${API_URL}/api/admin/tours/${selectedTour._id}`
+            : `${API_URL}/api/admin/tours`;
+
+        try {
+            const response = await fetch(url, {
+                method,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(editForm)
+            });
+
+            if (response.ok) {
+                toast({ title: 'Success', description: 'Tour saved successfully' });
+                fetchTours();
+                setIsEditing(false);
+                setSelectedTour(null);
+            } else {
+                toast({ title: 'Save Failed', variant: 'destructive' });
+            }
+        } catch (error) {
+            toast({ title: 'Network Error', variant: 'destructive' });
+        }
     };
 
     const filteredTours = tours.filter(tour =>
@@ -159,6 +198,10 @@ export default function AdminTours() {
                     </div>
                 </div>
                 <div className="flex gap-2">
+                    <Button onClick={openCreateModal} className="bg-amber-500 hover:bg-amber-600">
+                        <Plus className="w-4 h-4 mr-2" />
+                        Add Tour
+                    </Button>
                     <Button onClick={fetchTours} variant="outline" size="sm">
                         <RefreshCw className="w-4 h-4 mr-2" />
                         Refresh
@@ -246,7 +289,7 @@ export default function AdminTours() {
                                 </div>
 
                                 <div className="flex items-center justify-between">
-                                    <span className="text-xl font-bold text-green-500">${tour.price}</span>
+                                    <span className="text-xl font-bold text-green-500">Ksh {tour.price}</span>
                                     <span className="text-sm text-muted-foreground">
                                         {tour.inquiries || 0} inquiries
                                     </span>
@@ -278,17 +321,25 @@ export default function AdminTours() {
             )}
 
             {/* Edit Modal */}
-            {isEditing && selectedTour && (
+            {isEditing && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm">
                     <div className="w-full max-w-lg max-h-[90vh] overflow-y-auto p-6 rounded-2xl bg-card border border-border shadow-xl">
                         <div className="flex items-center justify-between mb-6">
-                            <h2 className="text-xl font-bold">Edit Tour</h2>
+                            <h2 className="text-xl font-bold">{selectedTour ? 'Edit Tour' : 'New Tour'}</h2>
                             <button onClick={() => setIsEditing(false)} className="p-2 rounded-lg hover:bg-muted">
                                 <X className="w-5 h-5" />
                             </button>
                         </div>
 
                         <div className="space-y-4">
+                            <div>
+                                <label className="text-sm font-medium">Image URL</label>
+                                <Input
+                                    value={editForm.image || ''}
+                                    onChange={(e) => setEditForm({ ...editForm, image: e.target.value })}
+                                />
+                            </div>
+
                             <div>
                                 <label className="text-sm font-medium">Title</label>
                                 <Input
@@ -308,7 +359,7 @@ export default function AdminTours() {
 
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="text-sm font-medium">Price ($)</label>
+                                    <label className="text-sm font-medium">Price (Ksh)</label>
                                     <Input
                                         type="number"
                                         value={editForm.price || ''}
@@ -371,7 +422,7 @@ export default function AdminTours() {
                         <div className="flex gap-2 mt-6">
                             <Button
                                 className="flex-1 bg-amber-500 hover:bg-amber-600"
-                                onClick={updateTour}
+                                onClick={saveTour}
                             >
                                 Save Changes
                             </Button>

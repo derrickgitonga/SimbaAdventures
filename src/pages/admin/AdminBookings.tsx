@@ -11,7 +11,9 @@ import {
     ChevronLeft,
     ChevronRight,
     RefreshCw,
-    DollarSign
+    RefreshCw,
+    DollarSign,
+    Trash2
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -111,6 +113,27 @@ export default function AdminBookings() {
         }
     };
 
+    const deleteBooking = async (bookingId: string) => {
+        if (!confirm('Are you sure you want to delete this booking? This action cannot be undone.')) return;
+
+        try {
+            const response = await fetch(`${API_URL}/api/admin/bookings/${bookingId}`, {
+                method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+
+            if (response.ok) {
+                toast({ title: 'Booking Deleted', description: 'Record removed successfully' });
+                fetchBookings();
+                setSelectedBooking(null);
+            } else {
+                toast({ title: 'Delete Failed', variant: 'destructive' });
+            }
+        } catch (error) {
+            toast({ title: 'Network Error', variant: 'destructive' });
+        }
+    };
+
     const filteredBookings = bookings.filter(booking =>
         booking.customerName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         booking.tourTitle?.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -168,7 +191,7 @@ export default function AdminBookings() {
                 </div>
                 <div className="p-4 rounded-xl bg-card border border-border">
                     <p className="text-sm text-muted-foreground">Revenue (Paid)</p>
-                    <p className="text-2xl font-bold text-green-500">${totalRevenue.toLocaleString()}</p>
+                    <p className="text-2xl font-bold text-green-500">Ksh {totalRevenue.toLocaleString()}</p>
                 </div>
             </div>
 
@@ -240,7 +263,7 @@ export default function AdminBookings() {
                                             </td>
                                             <td className="p-4">
                                                 <span className="text-sm font-medium text-green-500">
-                                                    ${booking.totalAmount?.toLocaleString()}
+                                                    Ksh {booking.totalAmount?.toLocaleString()}
                                                 </span>
                                             </td>
                                             <td className="p-4">
@@ -288,6 +311,14 @@ export default function AdminBookings() {
                                                             <XCircle className="w-4 h-4" />
                                                         </Button>
                                                     )}
+                                                    <Button
+                                                        variant="ghost"
+                                                        size="sm"
+                                                        className="text-red-500 hover:text-red-600 hover:bg-red-500/10"
+                                                        onClick={() => deleteBooking(booking._id)}
+                                                    >
+                                                        <Trash2 className="w-4 h-4" />
+                                                    </Button>
                                                 </div>
                                             </td>
                                         </tr>
@@ -359,7 +390,7 @@ export default function AdminBookings() {
                             </div>
                             <div className="flex justify-between">
                                 <span className="text-muted-foreground">Amount</span>
-                                <span className="font-bold text-green-500">${selectedBooking.totalAmount}</span>
+                                <span className="font-bold text-green-500">Ksh {selectedBooking.totalAmount}</span>
                             </div>
                             <div className="flex justify-between">
                                 <span className="text-muted-foreground">Status</span>
