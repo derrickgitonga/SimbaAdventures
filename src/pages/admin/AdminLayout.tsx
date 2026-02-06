@@ -34,7 +34,7 @@ export default function AdminLayout() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-background dark flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50/50 flex items-center justify-center">
         <div className="animate-pulse text-muted-foreground">Loading...</div>
       </div>
     );
@@ -47,11 +47,11 @@ export default function AdminLayout() {
   const currentPage = navItems.find(item => item.path === location.pathname)?.label || 'Admin';
 
   return (
-    <div className="min-h-screen bg-background dark">
+    <div className="min-h-screen bg-gray-50/50">
       {/* Sidebar */}
-      <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-card border-r border-border transform transition-transform lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+      <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-100 transform transition-transform lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         {/* Logo */}
-        <div className="flex items-center gap-2 p-5 border-b border-border">
+        <div className="flex items-center gap-2 p-5 border-b border-gray-100">
           <div className="p-2 rounded-lg bg-gradient-to-br from-amber-500 to-orange-600 text-white">
             <Mountain className="w-5 h-5" />
           </div>
@@ -84,7 +84,7 @@ export default function AdminLayout() {
         </nav>
 
         {/* User Info & Logout */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-border bg-card">
+        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-100 bg-white">
           {user && (
             <div className="mb-3 px-2">
               <p className="text-sm font-medium text-foreground truncate">{user.name}</p>
@@ -103,7 +103,7 @@ export default function AdminLayout() {
       </aside>
 
       {/* Mobile Header */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 z-40 bg-card border-b border-border">
+      <div className="lg:hidden fixed top-0 left-0 right-0 z-40 bg-white border-b border-gray-100">
         <div className="flex items-center justify-between p-4">
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}

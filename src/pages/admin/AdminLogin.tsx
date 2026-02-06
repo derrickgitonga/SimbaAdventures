@@ -32,13 +32,13 @@ export default function AdminLogin() {
   };
 
   return (
-    <div className="min-h-screen bg-background dark flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
       {/* Background Pattern */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-amber-900/20 via-background to-background" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-amber-500/10 via-gray-50 to-gray-50" />
 
       <div className="relative w-full max-w-md">
         {/* Login Card */}
-        <div className="p-8 rounded-2xl bg-card border border-border shadow-2xl">
+        <div className="p-8 rounded-2xl bg-white border border-gray-100 shadow-2xl">
           {/* Logo */}
           <div className="text-center mb-8">
             <div className="inline-flex p-4 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 mb-4 shadow-lg shadow-amber-500/20">

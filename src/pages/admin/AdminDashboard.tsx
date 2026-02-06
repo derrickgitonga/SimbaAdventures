@@ -80,11 +80,10 @@ export default function AdminDashboard() {
   };
 
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      minimumFractionDigits: 0
-    }).format(amount);
+    return `Ksh ${new Intl.NumberFormat('en-KE', {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }).format(amount)}`;
   };
 
   const statCards = [
@@ -152,7 +151,7 @@ export default function AdminDashboard() {
       {/* Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {statCards.map((stat) => (
-          <div key={stat.label} className="p-5 rounded-xl bg-card border border-border hover:border-border/80 transition-colors">
+          <div key={stat.label} className="p-5 rounded-xl bg-white shadow-sm border border-gray-100 hover:shadow-md transition-all duration-200">
             <div className="flex items-start justify-between mb-4">
               <div className={`p-2.5 rounded-xl ${stat.bg}`}>
                 <stat.icon className={`w-5 h-5 ${stat.color}`} />
@@ -174,7 +173,7 @@ export default function AdminDashboard() {
       {/* Charts Row */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* POS Summary */}
-        <div className="p-5 rounded-xl bg-card border border-border">
+        <div className="p-5 rounded-xl bg-white shadow-sm border border-gray-100">
           <div className="flex items-center justify-between mb-6">
             <h2 className="font-bold text-lg">POS Sales Summary</h2>
             <Link to="/admin/pos" className="text-sm text-amber-500 hover:underline">
@@ -211,7 +210,7 @@ export default function AdminDashboard() {
                   </div>
                   <span className={`text-sm font-bold ${txn.type === 'REFUND' ? 'text-red-500' : 'text-green-500'
                     }`}>
-                    {txn.type === 'REFUND' ? '-' : '+'}${Math.abs(txn.total)}
+                    {txn.type === 'REFUND' ? '-' : '+'}Ksh {Math.abs(txn.total)}
                   </span>
                 </div>
               ))}
@@ -220,7 +219,7 @@ export default function AdminDashboard() {
         </div>
 
         {/* Top Tours */}
-        <div className="p-5 rounded-xl bg-card border border-border">
+        <div className="p-5 rounded-xl bg-white shadow-sm border border-gray-100">
           <div className="flex items-center justify-between mb-6">
             <h2 className="font-bold text-lg">Top Performing Tours</h2>
             <Link to="/admin/tours" className="text-sm text-amber-500 hover:underline">
@@ -252,7 +251,7 @@ export default function AdminDashboard() {
       </div>
 
       {/* Recent Bookings */}
-      <div className="p-5 rounded-xl bg-card border border-border">
+      <div className="p-5 rounded-xl bg-white shadow-sm border border-gray-100">
         <div className="flex items-center justify-between mb-6">
           <h2 className="font-bold text-lg">Recent Bookings</h2>
           <Link to="/admin/bookings" className="text-sm text-amber-500 hover:underline">
@@ -282,7 +281,7 @@ export default function AdminDashboard() {
                       {booking.tourTitle}
                     </td>
                     <td className="py-3 font-medium text-green-500">
-                      ${booking.totalAmount}
+                      Ksh {booking.totalAmount}
                     </td>
                     <td className="py-3">
                       <span className={`px-2 py-1 rounded-lg text-xs ${booking.status === 'Confirmed'
@@ -308,7 +307,7 @@ export default function AdminDashboard() {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <Link
           to="/admin/pos"
-          className="p-4 rounded-xl bg-gradient-to-br from-green-500/10 to-emerald-500/5 border border-green-500/20 hover:border-green-500/40 transition-colors group"
+          className="p-4 rounded-xl bg-white bg-gradient-to-br from-green-500/10 to-emerald-500/5 border border-green-500/20 hover:border-green-500/40 shadow-sm hover:shadow-md transition-all duration-200 group"
         >
           <ShoppingCart className="w-6 h-6 text-green-500 mb-2" />
           <p className="font-medium">New Sale</p>
@@ -317,7 +316,7 @@ export default function AdminDashboard() {
 
         <Link
           to="/admin/bookings"
-          className="p-4 rounded-xl bg-gradient-to-br from-blue-500/10 to-indigo-500/5 border border-blue-500/20 hover:border-blue-500/40 transition-colors group"
+          className="p-4 rounded-xl bg-white bg-gradient-to-br from-blue-500/10 to-indigo-500/5 border border-blue-500/20 hover:border-blue-500/40 shadow-sm hover:shadow-md transition-all duration-200 group"
         >
           <Calendar className="w-6 h-6 text-blue-500 mb-2" />
           <p className="font-medium">Bookings</p>
@@ -326,7 +325,7 @@ export default function AdminDashboard() {
 
         <Link
           to="/admin/activity"
-          className="p-4 rounded-xl bg-gradient-to-br from-purple-500/10 to-pink-500/5 border border-purple-500/20 hover:border-purple-500/40 transition-colors group"
+          className="p-4 rounded-xl bg-white bg-gradient-to-br from-purple-500/10 to-pink-500/5 border border-purple-500/20 hover:border-purple-500/40 shadow-sm hover:shadow-md transition-all duration-200 group"
         >
           <Activity className="w-6 h-6 text-purple-500 mb-2" />
           <p className="font-medium">Activity</p>
@@ -335,7 +334,7 @@ export default function AdminDashboard() {
 
         <Link
           to="/admin/tours"
-          className="p-4 rounded-xl bg-gradient-to-br from-amber-500/10 to-orange-500/5 border border-amber-500/20 hover:border-amber-500/40 transition-colors group"
+          className="p-4 rounded-xl bg-white bg-gradient-to-br from-amber-500/10 to-orange-500/5 border border-amber-500/20 hover:border-amber-500/40 shadow-sm hover:shadow-md transition-all duration-200 group"
         >
           <Package className="w-6 h-6 text-amber-500 mb-2" />
           <p className="font-medium">Tours</p>

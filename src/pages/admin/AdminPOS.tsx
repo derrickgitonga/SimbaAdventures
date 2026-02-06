@@ -207,7 +207,7 @@ export default function AdminPOS() {
                             <button
                                 key={tour._id}
                                 onClick={() => addToCart(tour)}
-                                className="text-left p-4 rounded-xl bg-card border border-border hover:border-green-500/50 hover:bg-green-500/5 transition-all group"
+                                className="text-left p-4 rounded-xl bg-white border border-gray-100 shadow-sm hover:border-green-500/50 hover:bg-green-500/5 transition-all group"
                             >
                                 <img
                                     src={tour.image}
@@ -219,7 +219,7 @@ export default function AdminPOS() {
                                 </h3>
                                 <div className="flex items-center justify-between mt-2">
                                     <span className="text-sm text-muted-foreground">{tour.duration}</span>
-                                    <span className="font-bold text-green-500">${tour.price}</span>
+                                    <span className="font-bold text-green-500">Ksh {tour.price}</span>
                                 </div>
                             </button>
                         ))}
@@ -229,7 +229,7 @@ export default function AdminPOS() {
                 {/* Cart & Checkout */}
                 <div className="space-y-4">
                     {/* Customer Info */}
-                    <div className="p-4 rounded-xl bg-card border border-border">
+                    <div className="p-4 rounded-xl bg-white border border-gray-100 shadow-sm">
                         <div className="flex items-center gap-2 mb-3">
                             <User className="w-5 h-5 text-muted-foreground" />
                             <h3 className="font-medium">Customer Details</h3>
@@ -260,7 +260,7 @@ export default function AdminPOS() {
                     </div>
 
                     {/* Cart Items */}
-                    <div className="p-4 rounded-xl bg-card border border-border">
+                    <div className="p-4 rounded-xl bg-white border border-gray-100 shadow-sm">
                         <div className="flex items-center justify-between mb-3">
                             <h3 className="font-medium">Cart ({cart.length})</h3>
                             {cart.length > 0 && (
@@ -283,7 +283,7 @@ export default function AdminPOS() {
                                     <div key={item.id} className="flex items-center gap-3 p-2 rounded-lg bg-background">
                                         <div className="flex-1 min-w-0">
                                             <p className="text-sm font-medium truncate">{item.name}</p>
-                                            <p className="text-xs text-muted-foreground">${item.unitPrice} each</p>
+                                            <p className="text-xs text-muted-foreground">Ksh {item.unitPrice} each</p>
                                         </div>
                                         <div className="flex items-center gap-1">
                                             <button
@@ -313,7 +313,7 @@ export default function AdminPOS() {
                     </div>
 
                     {/* Payment Method */}
-                    <div className="p-4 rounded-xl bg-card border border-border">
+                    <div className="p-4 rounded-xl bg-white border border-gray-100 shadow-sm">
                         <h3 className="font-medium mb-3">Payment Method</h3>
                         <div className="grid grid-cols-4 gap-2">
                             {paymentMethods.map(method => (
@@ -321,8 +321,8 @@ export default function AdminPOS() {
                                     key={method.id}
                                     onClick={() => setPaymentMethod(method.id)}
                                     className={`p-3 rounded-lg border text-center transition-all ${paymentMethod === method.id
-                                            ? 'border-green-500 bg-green-500/10 text-green-500'
-                                            : 'border-border hover:border-muted-foreground'
+                                        ? 'border-green-500 bg-green-500/10 text-green-500'
+                                        : 'border-border hover:border-muted-foreground'
                                         }`}
                                 >
                                     <method.icon className="w-5 h-5 mx-auto mb-1" />
@@ -333,8 +333,8 @@ export default function AdminPOS() {
                     </div>
 
                     {/* Discount */}
-                    <div className="p-4 rounded-xl bg-card border border-border">
-                        <label className="text-sm text-muted-foreground">Discount ($)</label>
+                    <div className="p-4 rounded-xl bg-white border border-gray-100 shadow-sm">
+                        <label className="text-sm text-muted-foreground">Discount (Ksh)</label>
                         <Input
                             type="number"
                             min="0"
@@ -345,20 +345,20 @@ export default function AdminPOS() {
                     </div>
 
                     {/* Totals */}
-                    <div className="p-4 rounded-xl bg-card border border-border space-y-2">
+                    <div className="p-4 rounded-xl bg-white border border-gray-100 shadow-sm space-y-2">
                         <div className="flex justify-between text-sm">
                             <span className="text-muted-foreground">Subtotal</span>
-                            <span>${subtotal.toFixed(2)}</span>
+                            <span>Ksh {subtotal.toFixed(2)}</span>
                         </div>
                         {discount > 0 && (
                             <div className="flex justify-between text-sm text-green-500">
                                 <span>Discount</span>
-                                <span>-${discount.toFixed(2)}</span>
+                                <span>-Ksh {discount.toFixed(2)}</span>
                             </div>
                         )}
                         <div className="flex justify-between text-lg font-bold pt-2 border-t border-border">
                             <span>Total</span>
-                            <span className="text-green-500">${total.toFixed(2)}</span>
+                            <span className="text-green-500">Ksh {total.toFixed(2)}</span>
                         </div>
                     </div>
 
@@ -373,7 +373,7 @@ export default function AdminPOS() {
                         ) : (
                             <>
                                 <Receipt className="w-5 h-5 mr-2" />
-                                Complete Sale (${total.toFixed(2)})
+                                Complete Sale (Ksh {total.toFixed(2)})
                             </>
                         )}
                     </Button>
@@ -387,7 +387,7 @@ export default function AdminPOS() {
                             </div>
                             <div className="text-sm space-y-1">
                                 <p>Receipt: {lastTransaction.receiptNumber}</p>
-                                <p>Amount: ${lastTransaction.total}</p>
+                                <p>Amount: Ksh {lastTransaction.total}</p>
                                 <p>Customer: {lastTransaction.customer.name}</p>
                             </div>
                         </div>
