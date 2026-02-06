@@ -41,7 +41,6 @@ userSchema.methods.comparePassword = async function (candidatePassword) {
     return await bcrypt.compare(candidatePassword, this.password);
 };
 
-// Prevent overwriting model if already compiled (for serverless hot-reload compatibility)
 const User = mongoose.models.User || mongoose.model('User', userSchema);
 
 export default User;

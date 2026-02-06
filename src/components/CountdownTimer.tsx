@@ -37,15 +37,12 @@ export function CountdownTimer({ deadline, className, compact = false }: Countdo
             return { days, hours, minutes, seconds, total };
         };
 
-        // Initial calculation
         setTimeRemaining(calculateTimeRemaining());
 
-        // Update every second
         const interval = setInterval(() => {
             setTimeRemaining(calculateTimeRemaining());
         }, 1000);
 
-        // Cleanup
         return () => clearInterval(interval);
     }, [deadline]);
 
@@ -53,7 +50,6 @@ export function CountdownTimer({ deadline, className, compact = false }: Countdo
         return null;
     }
 
-    // Determine urgency level for styling
     const getUrgencyLevel = () => {
         const totalHours = timeRemaining.total / (1000 * 60 * 60);
         if (totalHours <= 0) return 'expired';
@@ -65,7 +61,6 @@ export function CountdownTimer({ deadline, className, compact = false }: Countdo
 
     const urgencyLevel = getUrgencyLevel();
 
-    // Styling based on urgency
     const urgencyStyles = {
         expired: 'bg-destructive/10 text-destructive border-destructive/30',
         critical: 'bg-red-500/10 text-red-600 border-red-500/30',
@@ -74,7 +69,6 @@ export function CountdownTimer({ deadline, className, compact = false }: Countdo
         normal: 'bg-accent/10 text-accent border-accent/30',
     };
 
-    // If registration is closed
     if (urgencyLevel === 'expired') {
         return (
             <div className={cn('flex items-center gap-2 px-3 py-2 rounded-lg border', urgencyStyles.expired, className)}>
@@ -84,7 +78,6 @@ export function CountdownTimer({ deadline, className, compact = false }: Countdo
         );
     }
 
-    // Compact mode (for cards)
     if (compact) {
         return (
             <div className={cn('flex items-center gap-2 px-3 py-2 rounded-lg border', urgencyStyles[urgencyLevel], className)}>
@@ -110,7 +103,6 @@ export function CountdownTimer({ deadline, className, compact = false }: Countdo
         );
     }
 
-    // Full mode (for detail pages)
     return (
         <div className={cn('p-4 rounded-xl border', urgencyStyles[urgencyLevel], className)}>
             <div className="flex items-center gap-2 mb-3">

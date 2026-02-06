@@ -5,7 +5,6 @@ export function useTours() {
   return useQuery({
     queryKey: ['tours'],
     queryFn: async () => {
-      // Simulate network delay for realistic feel, but very fast
       await new Promise(resolve => setTimeout(resolve, 300));
       return tours;
     },
@@ -46,7 +45,6 @@ export function useIncrementTourViews() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (tourId: string) => {
-      // Simulate API call
       return new Promise(resolve => setTimeout(resolve, 200, { success: true }));
     },
     onSuccess: () => {

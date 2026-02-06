@@ -15,7 +15,6 @@ const bookingSchema = new mongoose.Schema({
     paymentStatus: { type: String, enum: ['Pending', 'Paid', 'Refunded'], default: 'Pending' }
 }, { timestamps: true });
 
-// Prevent overwriting model if already compiled
 const Booking = mongoose.models.Booking || mongoose.model('Booking', bookingSchema);
 
 export default Booking;

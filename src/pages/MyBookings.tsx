@@ -31,7 +31,6 @@ export default function MyBookings() {
 
     const fetchBookings = async () => {
         try {
-            // Get the Clerk session token to authenticate with your backend
             const token = await user?.primaryEmailAddress?.emailAddress;
 
             const res = await fetch(`${API_URL}/api/user/bookings`, {
@@ -50,7 +49,6 @@ export default function MyBookings() {
         setLoadingBookings(false);
     };
 
-    // Show loading state while Clerk is initializing
     if (!isLoaded) {
         return (
             <div className="min-h-screen flex flex-col">
@@ -63,7 +61,6 @@ export default function MyBookings() {
         );
     }
 
-    // Redirect to auth if not signed in
     if (!isSignedIn) {
         return <Navigate to="/auth" />;
     }

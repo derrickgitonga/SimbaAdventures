@@ -30,7 +30,6 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
-// Get Clerk publishable key from environment variables
 const CLERK_PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY || "pk_test_placeholder";
 
 if (!CLERK_PUBLISHABLE_KEY || CLERK_PUBLISHABLE_KEY === "YOUR_PUBLISHABLE_KEY") {

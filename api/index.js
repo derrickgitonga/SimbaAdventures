@@ -4,7 +4,6 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 
-// Import models
 import Tour from '../server/models/Tour.js';
 import Booking from '../server/models/Booking.js';
 import Analytics from '../server/models/Analytics.js';
@@ -13,17 +12,30 @@ import POSTransaction from '../server/models/POSTransaction.js';
 import AdminUser from '../server/models/AdminUser.js';
 import User from '../server/models/User.js';
 
-dotenv.config();
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+dotenv.config({ path: join(__dirname, '..', '.env') });
 
 const app = express();
-const JWT_SECRET = process.env.JWT_SECRET || 'simba-adventures-secret-2026';
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'simba2026';
+const JWT_SECRET = process.env.JWT_SECRET;
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+
+if (!JWT_SECRET) {
+    throw new Error('JWT_SECRET environment variable is required');
+}
+
+if (!ADMIN_PASSWORD) {
+    throw new Error('ADMIN_PASSWORD environment variable is required');
+}
 
 let toursCache = null;
 let cacheTime = 0;
 const CACHE_DURATION = 60000;
 
-// DB Connection
 let isConnected = false;
 const connectToDatabase = async () => {
     if (isConnected) return;
@@ -92,7 +104,6 @@ app.post('/api/auth/register', async (req, res) => {
         const user = new User({ name, email, password, phone });
         await user.save();
 
-        // Retroactively link past bookings
         await Booking.updateMany({ customerEmail: email, userId: null }, { userId: user._id });
 
         const token = jwt.sign({ id: user._id, email: user.email, isCustomer: true }, JWT_SECRET, { expiresIn: '7d' });
@@ -123,8 +134,7 @@ app.get('/api/user/bookings', authenticateUser, async (req, res) => {
 // --- ADMIN ROUTES --- (Condensed for brevity, assumed same as before)
 app.post('/api/admin/login', async (req, res) => {
     const { password, email } = req.body;
-    const valid = process.env.ADMIN_PASSWORD || 'simba2026';
-    if (password === valid || (email === 'admin@simba-adventures.com' && password === valid)) {
+    if (password === ADMIN_PASSWORD || (email === 'admin@simba-adventures.com' && password === ADMIN_PASSWORD)) {
         const token = jwt.sign({ id: 'admin', email: 'admin@simba-adventures.com', role: 'super_admin' }, JWT_SECRET, { expiresIn: '24h' });
         await logActivity(req, 'LOGIN', 'Admin login');
         return res.json({ success: true, token, user: { role: 'super_admin' } });
@@ -137,7 +147,6 @@ app.post('/api/bookings', async (req, res) => {
     try {
         const bookingData = req.body;
 
-        // Link to user if exists
         const user = await User.findOne({ email: bookingData.customerEmail });
         if (user) bookingData.userId = user._id;
 
@@ -177,7 +186,6 @@ app.post('/api/admin/pos/sale', authenticateToken, async (req, res) => {
     try {
         const { customer, items, paymentMethod, total } = req.body;
 
-        // Save Transaction
         const transaction = new POSTransaction({
             transactionId: generateTransactionId(),
             type: 'SALE', customer, items, total, amountPaid: total, paymentMethod, status: 'COMPLETED',
@@ -185,7 +193,6 @@ app.post('/api/admin/pos/sale', authenticateToken, async (req, res) => {
         });
         await transaction.save();
 
-        // Create Booking & Link User
         const tourItem = items.find(i => i.tourId);
         if (tourItem) {
             const user = await User.findOne({ email: customer.email });

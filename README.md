@@ -1,115 +1,85 @@
-# Simba Adventures 🦁
+# Simba Adventures
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-simba--adventures.vercel.app-amber?style=for-the-badge)](https://simba-adventures.vercel.app/)
-[![Built with React](https://img.shields.io/badge/Built%20with-React-61DAFB?style=flat-square&logo=react)](https://reactjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=flat-square&logo=vercel)](https://vercel.com/)
+A modern e-commerce platform for booking customizable safari and adventure tours in Kenya and East Africa.
 
-> **A modern e-commerce platform for booking customizable safari and adventure tours in Kenya and East Africa.**
+## Overview
 
-Simba Adventures is a full-stack travel booking application built with React, Node.js, TypeScript, and MongoDB. It enables travelers worldwide to discover, customize, and securely book safari experiences in Kenya's most spectacular destinations — from the iconic Maasai Mara to the peaks of Mount Kenya.
+Simba Adventures is a full-stack travel booking application built with React, Node.js, TypeScript, and MongoDB. It enables travelers worldwide to discover, customize, and securely book safari experiences in Kenya's most spectacular destinations.
 
-## 🌍 Live Demo
-
-**Website:** [simba-adventures.vercel.app](https://simba-adventures.vercel.app/)
-
-### Interface Gallery
-
-| Feature | Preview |
-| --- | --- |
-| **Landing Page** | ![Landing Page](https://raw.githubusercontent.com/derrickgitonga/SimbaAdventures/main/docs/landing.png) |
-| **Tour Details** | ![Tour Details](https://raw.githubusercontent.com/derrickgitonga/SimbaAdventures/main/docs/tour-details.png) |
-| **Booking Flow** | ![Booking Flow](https://raw.githubusercontent.com/derrickgitonga/SimbaAdventures/main/docs/booking.png) |
-| **Mobile Experience** | ![Mobile](https://raw.githubusercontent.com/derrickgitonga/SimbaAdventures/main/docs/mobile.png) |
-
----
-
-## ✨ Key Features
-
-### For Travelers
-- **🔍 Dynamic Tour Discovery** — Browse and filter safari packages by destination, duration, difficulty, and price
-- **🎨 Custom Itinerary Builder** — Create personalized safaris combining Maasai Mara, Amboseli, Mount Kenya, and more
-- **🔒 Secure Online Booking** — SSL-encrypted payments supporting Credit Cards, M-Pesa, PayPal, and bank transfers
-- **📱 Fully Responsive** — Optimized experience across desktop, tablet, and mobile devices
-
-### For Administrators
-- **📊 Analytics Dashboard** — Track bookings, revenue, and customer inquiries in real-time
-- **📝 Content Management** — Manage tours, pricing, and availability through an intuitive admin panel
-- **📧 Automated Notifications** — Email confirmations and updates sent automatically
-
-### Technical Highlights
-- **⚡ Performance Optimized** — Vite-powered builds with lazy loading and code splitting
-- **🔐 Type Safety** — Full TypeScript implementation reducing runtime errors
-- **🎯 SEO & GEO Optimized** — Comprehensive structured data (JSON-LD) for search engines and AI models
-- **🌐 API-First Architecture** — RESTful backend enabling future mobile app integration
-
----
-
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Layer | Technology |
 |-------|-----------|
-| **Frontend** | React 18, TypeScript, Tailwind CSS |
-| **UI Components** | shadcn/ui, Lucide Icons |
-| **Build Tool** | Vite |
-| **Backend** | Node.js, Express.js |
-| **Database** | MongoDB Atlas |
-| **Authentication** | Clerk (Customer), JWT (Admin) |
-| **Payments** | Stripe, M-Pesa Integration |
-| **Deployment** | Vercel (Frontend), Railway (Backend) |
-| **Version Control** | Git, GitHub |
+| Frontend | React 18, TypeScript, Tailwind CSS |
+| UI Components | shadcn/ui, Lucide Icons |
+| Build Tool | Vite |
+| Backend | Node.js, Express.js |
+| Database | MongoDB Atlas |
+| Authentication | Clerk (Customer), JWT (Admin) |
+| Deployment | Vercel (Frontend), Railway (Backend) |
 
----
+## Features
 
-## 🚀 Getting Started
+### Customer Features
+- Dynamic tour discovery with filtering by destination, duration, difficulty, and price
+- Custom itinerary builder for personalized safaris
+- Secure online booking with multiple payment options
+- Fully responsive design for all devices
+- User authentication and booking management
+
+### Admin Features
+- Real-time analytics dashboard
+- Point of Sale (POS) system for walk-in bookings
+- Tour and booking management
+- Activity logging and audit trails
+- Content management system
+
+## Getting Started
 
 ### Prerequisites
 
-- **Node.js** 18+ (LTS recommended)
-- **npm** or **bun** package manager
-- **MongoDB** database (local or Atlas)
+- Node.js 18+ (LTS recommended)
+- npm or bun package manager
+- MongoDB database (local or Atlas)
 
 ### Installation
 
-1. **Clone the repository:**
+1. Clone the repository:
    ```bash
    git clone https://github.com/derrickgitonga/SimbaAdventures.git
    cd SimbaAdventures
    ```
 
-2. **Install dependencies:**
+2. Install dependencies:
    ```bash
    npm install
-   # or
-   bun install
    ```
 
-3. **Configure environment variables:**
+3. Configure environment variables:
+   
+   Copy the example file and add your credentials:
    ```bash
-   cp .env.example .env.local
+   cp .env.example .env
    ```
    
-   Update `.env.local` with your configuration:
+   Update `.env` with your configuration:
    ```env
-   VITE_API_URL=http://localhost:5000
-   VITE_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
+   VITE_API_URL=http://localhost:5000/api
    MONGODB_URI=your_mongodb_connection_string
-   JWT_SECRET=your_jwt_secret
+   VITE_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
+   CLERK_SECRET_KEY=your_clerk_secret_key
+   JWT_SECRET=your_jwt_secret_key
+   ADMIN_PASSWORD=your_admin_password
    ```
-   
-   **Note:** Get your Clerk publishable key from [Clerk Dashboard](https://dashboard.clerk.com/last-active?path=api-keys). See [CLERK_INTEGRATION.md](./CLERK_INTEGRATION.md) for detailed setup instructions.
 
-4. **Start the development server:**
+4. Start the development server:
    ```bash
    npm run dev
    ```
 
-5. **Open your browser:**
-   Navigate to `http://localhost:5173`
+5. Open your browser and navigate to `http://localhost:5173`
 
----
-
-## 📁 Project Structure
+## Project Structure
 
 ```
 SimbaAdventures/
@@ -122,80 +92,35 @@ SimbaAdventures/
 │   └── lib/            # Utility functions
 ├── server/             # Express.js backend
 │   ├── models/         # MongoDB schemas
-│   ├── routes/         # API endpoints
-│   └── middleware/     # Auth and validation
+│   └── server.js       # Main server file
 ├── public/             # Static assets
 └── api/                # Vercel serverless functions
 ```
 
----
+## Admin Access
 
-## 🎯 Safari Destinations Featured
+The admin dashboard is accessible at `/admin/login` and includes:
+- Real-time dashboard and analytics
+- Point of Sale (POS) for walk-in bookings
+- Activity logging and audit trails
+- Tour and booking management
 
-| Destination | Experience |
-|-------------|------------|
-| **Maasai Mara** | Walking safaris, Great Migration viewing, cultural experiences |
-| **Amboseli** | Elephant photography, Mount Kilimanjaro views |
-| **Mount Kenya** | Summit expeditions, alpine trekking |
-| **Hell's Gate** | Cycling adventures, gorge exploration |
-| **Lake Turkana** | Remote expeditions, tribal cultures |
-| **Aberdare** | Waterfall trails, forest wildlife |
+Configure admin credentials via the `ADMIN_PASSWORD` environment variable.
 
----
+## Security Features
 
-## 🔒 Security Features
+- SSL/TLS encryption for all data transmission
+- Secure authentication with Clerk and JWT
+- Input validation on all API endpoints
+- Rate limiting protection
+- Secure HTTP headers implementation
 
-- **SSL/TLS Encryption** — All data transmitted securely
-- **PCI DSS Compliance** — Payment processing meets industry standards
-- **Input Validation** — Server-side validation on all API endpoints
-- **Rate Limiting** — Protection against DDoS and brute force attacks
-- **Secure Headers** — Helmet.js implementation for HTTP security
+## License
 
----
+This project is licensed under the MIT License.
 
-## 👨‍💻 Developer
+## Acknowledgments
 
-**Derrick Gitonga**
-
-- 🔗 GitHub: [@derrickgitonga](https://github.com/derrickgitonga)
-- 💼 LinkedIn: [Derrick Gitonga](https://www.linkedin.com/in/derrickgitonga/)
-- 🌐 Portfolio: [derrickgitonga.dev](https://derrickgitonga.dev)
-
-### 🔐 Admin Portal Access
-
-The secure admin dashboard includes POS, booking management, and activity logs.
-
-- **Login URL:** `/portal-access-v1/login`
-- **Default Password:** `simba2026` (Change via `ADMIN_PASSWORD` env var)
-- **Features:**
-  - 📊 Real-time Dashboard & Analytics
-  - 💰 Point of Sale (POS) for walk-in bookings
-  - 📝 Activity Logging & Audit Trails
-  - 🌍 Tour & Booking Management
-
-
-### About the Developer
-
-Full-stack Software Engineer specializing in React, Node.js, and TypeScript. Creator of Simba Adventures — an e-commerce platform enabling secure, customizable safari bookings in Kenya and East Africa. Passionate about building performant, accessible web applications that solve real-world problems.
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
-
----
-
-## 🙏 Acknowledgments
-
-- Wildlife images courtesy of [Unsplash](https://unsplash.com)
-- UI components from [shadcn/ui](https://ui.shadcn.com)
-- Icons by [Lucide](https://lucide.dev)
-
----
-
-<p align="center">
-  <strong>🦁 Discover Africa's Wild Heart with Simba Adventures</strong>
-  <br>
-  <a href="https://simba-adventures.vercel.app">Book Your Safari Today →</a>
-</p>
+- Wildlife images courtesy of Unsplash
+- UI components from shadcn/ui
+- Icons by Lucide

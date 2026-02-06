@@ -18,7 +18,6 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-// Admin navigation menu items
 const navItems = [
   { icon: LayoutDashboard, label: 'Dashboard', path: '/admin' },
   { icon: ShoppingCart, label: 'POS Terminal', path: '/admin/pos' },
@@ -41,7 +40,6 @@ export default function AdminLayout() {
     );
   }
 
-  // Redirect to login if not authenticated
   if (!isAuthenticated) {
     return <Navigate to="/admin/login" replace />;
   }

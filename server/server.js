@@ -11,12 +11,28 @@ import ActivityLog from './models/ActivityLog.js';
 import POSTransaction from './models/POSTransaction.js';
 import AdminUser from './models/AdminUser.js';
 
-dotenv.config();
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+dotenv.config({ path: join(__dirname, '..', '.env') });
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const JWT_SECRET = process.env.JWT_SECRET || 'simba-adventures-secret-2026';
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'simba2026';
+const JWT_SECRET = process.env.JWT_SECRET;
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+
+if (!JWT_SECRET) {
+    console.error('FATAL: JWT_SECRET environment variable is not set');
+    process.exit(1);
+}
+
+if (!ADMIN_PASSWORD) {
+    console.error('FATAL: ADMIN_PASSWORD environment variable is not set');
+    process.exit(1);
+}
 
 let toursCache = null;
 let cacheTime = 0;

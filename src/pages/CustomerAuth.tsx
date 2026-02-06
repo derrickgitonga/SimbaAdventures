@@ -10,14 +10,12 @@ export default function CustomerAuth() {
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState<string>('login');
 
-    // Redirect to bookings if already signed in
     useEffect(() => {
         if (isLoaded && isSignedIn) {
             navigate('/my-bookings');
         }
     }, [isSignedIn, isLoaded, navigate]);
 
-    // Show loading state while Clerk is initializing
     if (!isLoaded) {
         return (
             <div className="min-h-screen flex flex-col">

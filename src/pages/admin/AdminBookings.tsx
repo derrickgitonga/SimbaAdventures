@@ -54,7 +54,6 @@ export default function AdminBookings() {
 
     useEffect(() => {
         fetchBookings();
-        // Poll every 15 seconds to keep bookings up to date
         const interval = setInterval(fetchBookings, 15000);
         return () => clearInterval(interval);
     }, [page, filterStatus]);

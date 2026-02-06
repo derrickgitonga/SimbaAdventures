@@ -57,7 +57,6 @@ export default function Tours() {
     if (!tours) return [];
     let result = [...tours];
 
-    // Search filter
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
       result = result.filter(
@@ -68,17 +67,14 @@ export default function Tours() {
       );
     }
 
-    // Category filter
     if (selectedCategory && selectedCategory !== 'All Adventures') {
       result = result.filter((tour) => tour.category === selectedCategory);
     }
 
-    // Difficulty filter
     if (selectedDifficulty) {
       result = result.filter((tour) => tour.difficulty === selectedDifficulty);
     }
 
-    // Sorting
     switch (sortBy) {
       case 'price-low':
         result.sort((a, b) => a.price - b.price);

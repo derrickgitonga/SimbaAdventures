@@ -42,7 +42,8 @@ class ActivityTracker {
             const activity = this.queue.shift();
             if (activity) {
                 try {
-                    await fetch(`${API_URL}/api/activity/log`, {
+                    const apiUrl = API_URL.replace(/\/api$/, '');
+                    await fetch(`${apiUrl}/api/activity/log`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
