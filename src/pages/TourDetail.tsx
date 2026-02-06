@@ -140,7 +140,16 @@ export default function TourDetail() {
                 <div className="p-4 rounded-xl bg-card border border-border text-center">
                   <Clock className="w-6 h-6 text-accent mx-auto mb-2" />
                   <span className="text-sm text-muted-foreground">Duration</span>
-                  <p className="font-semibold text-foreground">{tour.duration}</p>
+                  <p className="font-semibold text-foreground">
+                    {(() => {
+                      const match = tour.duration.match(/^(\d+)\s*Days?$/i);
+                      if (match) {
+                        const days = parseInt(match[1]);
+                        if (days > 1) return `${days} Days & ${days - 1} Nights`;
+                      }
+                      return tour.duration;
+                    })()}
+                  </p>
                 </div>
                 <div className="p-4 rounded-xl bg-card border border-border text-center">
                   <Users className="w-6 h-6 text-accent mx-auto mb-2" />

@@ -282,10 +282,19 @@ export default function AdminTours() {
                                         <MapPin className="w-3 h-3" />
                                         {tour.location}
                                     </span>
-                                    <span className="flex items-center gap-1 text-muted-foreground">
+                                    <div className="flex items-center gap-1 text-muted-foreground">
                                         <Clock className="w-3 h-3" />
-                                        {tour.duration}
-                                    </span>
+                                        <span>
+                                            {(() => {
+                                                const match = tour.duration.match(/^(\d+)\s*Days?$/i);
+                                                if (match) {
+                                                    const days = parseInt(match[1]);
+                                                    if (days > 1) return `${days} Days & ${days - 1} Nights`;
+                                                }
+                                                return tour.duration;
+                                            })()}
+                                        </span>
+                                    </div>
                                 </div>
 
                                 <div className="flex items-center justify-between">

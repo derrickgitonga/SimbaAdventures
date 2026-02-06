@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { MapPin, Clock, Users, Star, TrendingUp } from 'lucide-react';
+import { MapPin, Users, Star, TrendingUp } from 'lucide-react';
 import { Tour } from '@/data/mockData';
 import { Badge } from '@/components/ui/badge';
 import { CountdownTimer } from '@/components/CountdownTimer';
@@ -94,8 +94,16 @@ export function TourCard({ tour, index = 0 }: TourCardProps) {
           <div className="flex items-center justify-between pt-4 border-t border-border">
             <div className="flex items-center gap-4 text-sm text-muted-foreground">
               <div className="flex items-center gap-1">
-                <Clock className="w-4 h-4" />
-                <span>{tour.duration}</span>
+                <span>
+                  {(() => {
+                    const match = tour.duration.match(/^(\d+)\s*Days?$/i);
+                    if (match) {
+                      const days = parseInt(match[1]);
+                      if (days > 1) return `${days} Days & ${days - 1} Nights`;
+                    }
+                    return tour.duration;
+                  })()}
+                </span>
               </div>
               <div className="flex items-center gap-1">
                 <Users className="w-4 h-4" />

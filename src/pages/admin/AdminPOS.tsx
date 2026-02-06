@@ -218,7 +218,16 @@ export default function AdminPOS() {
                                     {tour.title}
                                 </h3>
                                 <div className="flex items-center justify-between mt-2">
-                                    <span className="text-sm text-muted-foreground">{tour.duration}</span>
+                                    <span className="text-sm text-muted-foreground">
+                                        {(() => {
+                                            const match = tour.duration.match(/^(\d+)\s*Days?$/i);
+                                            if (match) {
+                                                const days = parseInt(match[1]);
+                                                if (days > 1) return `${days} Days & ${days - 1} Nights`;
+                                            }
+                                            return tour.duration;
+                                        })()}
+                                    </span>
                                     <span className="font-bold text-green-500">Ksh {tour.price}</span>
                                 </div>
                             </button>
