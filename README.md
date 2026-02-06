@@ -97,16 +97,6 @@ SimbaAdventures/
 └── api/                # Vercel serverless functions
 ```
 
-## Admin Access
-
-The admin dashboard is accessible at `/admin/login` and includes:
-- Real-time dashboard and analytics
-- Point of Sale (POS) for walk-in bookings
-- Activity logging and audit trails
-- Tour and booking management
-
-Configure admin credentials via the `ADMIN_PASSWORD` environment variable.
-
 ## Security Features
 
 - SSL/TLS encryption for all data transmission
