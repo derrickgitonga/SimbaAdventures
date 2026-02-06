@@ -18,13 +18,14 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
+// Admin navigation menu items
 const navItems = [
-  { icon: LayoutDashboard, label: 'Dashboard', path: '/portal-access-v1' },
-  { icon: ShoppingCart, label: 'POS Terminal', path: '/portal-access-v1/pos' },
-  { icon: Calendar, label: 'Bookings', path: '/portal-access-v1/bookings' },
-  { icon: Package, label: 'Tours', path: '/portal-access-v1/tours' },
-  { icon: BarChart3, label: 'Analytics', path: '/portal-access-v1/analytics' },
-  { icon: Activity, label: 'Activity Logs', path: '/portal-access-v1/activity' },
+  { icon: LayoutDashboard, label: 'Dashboard', path: '/admin' },
+  { icon: ShoppingCart, label: 'POS Terminal', path: '/admin/pos' },
+  { icon: Calendar, label: 'Bookings', path: '/admin/bookings' },
+  { icon: Package, label: 'Tours', path: '/admin/tours' },
+  { icon: BarChart3, label: 'Analytics', path: '/admin/analytics' },
+  { icon: Activity, label: 'Activity Logs', path: '/admin/activity' },
 ];
 
 export default function AdminLayout() {
@@ -40,8 +41,9 @@ export default function AdminLayout() {
     );
   }
 
+  // Redirect to login if not authenticated
   if (!isAuthenticated) {
-    return <Navigate to="/portal-access-v1/login" replace />;
+    return <Navigate to="/admin/login" replace />;
   }
 
   const currentPage = navItems.find(item => item.path === location.pathname)?.label || 'Admin';
@@ -71,8 +73,8 @@ export default function AdminLayout() {
                 to={item.path}
                 onClick={() => setSidebarOpen(false)}
                 className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all group ${isActive
-                    ? 'bg-gradient-to-r from-amber-500/20 to-orange-500/10 text-amber-500 border border-amber-500/20'
-                    : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                  ? 'bg-gradient-to-r from-amber-500/20 to-orange-500/10 text-amber-500 border border-amber-500/20'
+                  : 'text-muted-foreground hover:bg-muted hover:text-foreground'
                   }`}
               >
                 <item.icon className={`w-5 h-5 ${isActive ? 'text-amber-500' : ''}`} />

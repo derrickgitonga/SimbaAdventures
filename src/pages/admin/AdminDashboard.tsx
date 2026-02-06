@@ -140,7 +140,7 @@ export default function AdminDashboard() {
         </div>
         <div className="flex gap-2">
           <Link
-            to="/portal-access-v1/pos"
+            to="/admin/pos"
             className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-green-500 to-emerald-600 text-white font-medium hover:opacity-90 transition-opacity"
           >
             <ShoppingCart className="w-4 h-4" />
@@ -177,7 +177,7 @@ export default function AdminDashboard() {
         <div className="p-5 rounded-xl bg-card border border-border">
           <div className="flex items-center justify-between mb-6">
             <h2 className="font-bold text-lg">POS Sales Summary</h2>
-            <Link to="/portal-access-v1/pos" className="text-sm text-amber-500 hover:underline">
+            <Link to="/admin/pos" className="text-sm text-amber-500 hover:underline">
               View All
             </Link>
           </div>
@@ -223,7 +223,7 @@ export default function AdminDashboard() {
         <div className="p-5 rounded-xl bg-card border border-border">
           <div className="flex items-center justify-between mb-6">
             <h2 className="font-bold text-lg">Top Performing Tours</h2>
-            <Link to="/portal-access-v1/tours" className="text-sm text-amber-500 hover:underline">
+            <Link to="/admin/tours" className="text-sm text-amber-500 hover:underline">
               View All
             </Link>
           </div>
@@ -255,7 +255,7 @@ export default function AdminDashboard() {
       <div className="p-5 rounded-xl bg-card border border-border">
         <div className="flex items-center justify-between mb-6">
           <h2 className="font-bold text-lg">Recent Bookings</h2>
-          <Link to="/portal-access-v1/bookings" className="text-sm text-amber-500 hover:underline">
+          <Link to="/admin/bookings" className="text-sm text-amber-500 hover:underline">
             View All
           </Link>
         </div>
@@ -307,7 +307,7 @@ export default function AdminDashboard() {
       {/* Quick Actions */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <Link
-          to="/portal-access-v1/pos"
+          to="/admin/pos"
           className="p-4 rounded-xl bg-gradient-to-br from-green-500/10 to-emerald-500/5 border border-green-500/20 hover:border-green-500/40 transition-colors group"
         >
           <ShoppingCart className="w-6 h-6 text-green-500 mb-2" />
@@ -316,7 +316,7 @@ export default function AdminDashboard() {
         </Link>
 
         <Link
-          to="/portal-access-v1/bookings"
+          to="/admin/bookings"
           className="p-4 rounded-xl bg-gradient-to-br from-blue-500/10 to-indigo-500/5 border border-blue-500/20 hover:border-blue-500/40 transition-colors group"
         >
           <Calendar className="w-6 h-6 text-blue-500 mb-2" />
@@ -325,7 +325,7 @@ export default function AdminDashboard() {
         </Link>
 
         <Link
-          to="/portal-access-v1/activity"
+          to="/admin/activity"
           className="p-4 rounded-xl bg-gradient-to-br from-purple-500/10 to-pink-500/5 border border-purple-500/20 hover:border-purple-500/40 transition-colors group"
         >
           <Activity className="w-6 h-6 text-purple-500 mb-2" />
@@ -334,7 +334,7 @@ export default function AdminDashboard() {
         </Link>
 
         <Link
-          to="/portal-access-v1/tours"
+          to="/admin/tours"
           className="p-4 rounded-xl bg-gradient-to-br from-amber-500/10 to-orange-500/5 border border-amber-500/20 hover:border-amber-500/40 transition-colors group"
         >
           <Package className="w-6 h-6 text-amber-500 mb-2" />

@@ -20,7 +20,8 @@ export default function AdminLogin() {
     try {
       const success = await login(password);
       if (success) {
-        navigate('/portal-access-v1');
+        // Redirect to admin dashboard
+        navigate('/admin');
       } else {
         setError('Invalid password');
       }

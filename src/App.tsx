@@ -65,8 +65,8 @@ const App = () => (
               <Route path="/my-bookings" element={<MyBookings />} />
 
               {/* Admin Routes */}
-              <Route path="/portal-access-v1/login" element={<AdminLogin />} />
-              <Route path="/portal-access-v1" element={<AdminLayout />}>
+              <Route path="/admin/login" element={<AdminLogin />} />
+              <Route path="/admin" element={<AdminLayout />}>
                 <Route index element={<AdminDashboard />} />
                 <Route path="pos" element={<AdminPOS />} />
                 <Route path="bookings" element={<AdminBookings />} />
