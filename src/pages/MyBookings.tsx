@@ -106,7 +106,7 @@ export default function MyBookings() {
                                 <div className="flex items-center gap-6">
                                     <div className="text-right">
                                         <p className="text-sm text-muted-foreground">Total</p>
-                                        <p className="text-xl font-bold">${booking.totalAmount}</p>
+                                        <p className="text-xl font-bold">Ksh {booking.totalAmount}</p>
                                     </div>
 
                                     <div className={`px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2 ${booking.status === 'Confirmed' ? 'bg-green-100 text-green-700' :

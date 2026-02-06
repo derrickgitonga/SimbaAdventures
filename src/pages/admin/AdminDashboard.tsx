@@ -3,7 +3,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import {
   TrendingUp,
   Users,
-  DollarSign,
+  Banknote,
   Package,
   Calendar,
   ArrowUpRight,
@@ -91,7 +91,7 @@ export default function AdminDashboard() {
       label: 'Monthly Revenue',
       value: formatCurrency(stats?.overview.revenue || 0),
       change: stats?.overview.revenueChange || 0,
-      icon: DollarSign,
+      icon: Banknote,
       color: 'text-green-500',
       bg: 'bg-green-500/10'
     },

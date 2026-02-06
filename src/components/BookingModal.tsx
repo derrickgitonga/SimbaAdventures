@@ -188,12 +188,12 @@ export function BookingModal({ tour, isOpen, onClose }: BookingModalProps) {
                             <div className="p-4 rounded-lg bg-muted/50 border border-border">
                                 <div className="flex justify-between items-center">
                                     <span className="text-muted-foreground">Price per person</span>
-                                    <span className="font-semibold">KSH {tour.price.toLocaleString()}</span>
+                                    <span className="font-semibold">Ksh {tour.price.toLocaleString()}</span>
                                 </div>
                                 <div className="flex justify-between items-center mt-2 pt-2 border-t border-border">
                                     <span className="font-semibold text-foreground">Total Amount</span>
                                     <span className="font-heading font-bold text-xl text-accent">
-                                        KSH {(tour.price * formData.participants).toLocaleString()}
+                                        Ksh {(tour.price * formData.participants).toLocaleString()}
                                     </span>
                                 </div>
                             </div>

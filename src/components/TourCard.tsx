@@ -58,11 +58,11 @@ export function TourCard({ tour, index = 0 }: TourCardProps) {
           <div className="absolute bottom-4 right-4 text-right">
             {tour.originalPrice && (
               <span className="text-white/60 text-sm line-through block">
-                KSH {tour.originalPrice}
+                Ksh {tour.originalPrice}
               </span>
             )}
             <span className="text-white font-heading font-bold text-2xl">
-              KSH {tour.price}
+              Ksh {tour.price}
             </span>
           </div>
         </div>
