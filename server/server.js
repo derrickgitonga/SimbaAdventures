@@ -108,6 +108,34 @@ async function getToursFromCache() {
     return toursCache;
 }
 
+app.post('/api/activity/log', async (req, res) => {
+    try {
+        const { action, description, entityType, entityId, severity, metadata, userId, userEmail, userName, userType } = req.body;
+
+        const log = new ActivityLog({
+            action,
+            description,
+            userId,
+            userEmail,
+            userName,
+            userType: userType || 'customer',
+            metadata: metadata || {},
+            ipAddress: req.ip || req.headers['x-forwarded-for'] || 'unknown',
+            userAgent: req.headers['user-agent'] || 'unknown',
+            entityType: entityType || 'system',
+            entityId: entityId || null,
+            severity: severity || 'info',
+            success: true
+        });
+
+        await log.save();
+        res.json({ success: true });
+    } catch (error) {
+        console.error('Activity log error:', error);
+        res.status(500).json({ error: error.message });
+    }
+});
+
 app.post('/api/admin/login', async (req, res) => {
     const { password, email } = req.body;
 

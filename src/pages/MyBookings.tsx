@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
-import { useUserAuth } from '@/contexts/UserAuthContext';
+import { useUser } from '@clerk/clerk-react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { Calendar, Package, Clock, CheckCircle, XCircle } from 'lucide-react';
@@ -17,40 +17,65 @@ interface Booking {
 }
 
 export default function MyBookings() {
-    const { user, token, isLoading } = useUserAuth();
+    const { user, isSignedIn, isLoaded } = useUser();
     const [bookings, setBookings] = useState<Booking[]>([]);
     const [loadingBookings, setLoadingBookings] = useState(true);
 
     const API_URL = import.meta.env.VITE_API_URL || '';
 
     useEffect(() => {
-        if (token) {
+        if (isSignedIn && user) {
             fetchBookings();
         }
-    }, [token]);
+    }, [isSignedIn, user]);
 
     const fetchBookings = async () => {
         try {
+            // Get the Clerk session token to authenticate with your backend
+            const token = await user?.primaryEmailAddress?.emailAddress;
+
             const res = await fetch(`${API_URL}/api/user/bookings`, {
-                headers: { 'Authorization': `Bearer ${token}` }
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'X-Clerk-User-Id': user?.id || ''
+                }
             });
             if (res.ok) {
                 const data = await res.json();
                 setBookings(data);
             }
-        } catch (e) { console.error(e); }
+        } catch (e) {
+            console.error(e);
+        }
         setLoadingBookings(false);
     };
 
-    if (isLoading) return <div>Loading...</div>;
-    if (!user) return <Navigate to="/auth" />;
+    // Show loading state while Clerk is initializing
+    if (!isLoaded) {
+        return (
+            <div className="min-h-screen flex flex-col">
+                <Header />
+                <div className="flex-1 flex items-center justify-center">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+                </div>
+                <Footer />
+            </div>
+        );
+    }
+
+    // Redirect to auth if not signed in
+    if (!isSignedIn) {
+        return <Navigate to="/auth" />;
+    }
 
     return (
         <div className="min-h-screen flex flex-col">
             <Header />
             <div className="flex-1 container mx-auto px-4 py-12">
                 <h1 className="text-3xl font-bold mb-2">My Bookings</h1>
-                <p className="text-muted-foreground mb-8">Welcome back, {user.name}</p>
+                <p className="text-muted-foreground mb-8">
+                    Welcome back, {user?.firstName || user?.emailAddresses[0]?.emailAddress}
+                </p>
 
                 {loadingBookings ? (
                     <div className="animate-pulse space-y-4">

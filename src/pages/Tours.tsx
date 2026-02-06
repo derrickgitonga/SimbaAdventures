@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Search, SlidersHorizontal, X, Loader2 } from 'lucide-react';
@@ -8,16 +8,36 @@ import { TourCard } from '@/components/TourCard';
 import { categories, difficultyLevels } from '@/data/mockData';
 import { useTours } from '@/hooks/useTours';
 import { Button } from '@/components/ui/button';
+import { useActivityTracker, trackSearch } from '@/lib/activityTracker';
 
 export default function Tours() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [showFilters, setShowFilters] = useState(false);
   const { data: tours, isLoading, error } = useTours();
+  const { track } = useActivityTracker();
 
   const searchQuery = searchParams.get('search') || '';
   const selectedCategory = searchParams.get('category') || 'All Adventures';
   const selectedDifficulty = searchParams.get('difficulty') || '';
   const sortBy = searchParams.get('sort') || 'featured';
+
+  useEffect(() => {
+    track({
+      action: 'CUSTOMER_VIEW_TOURS',
+      description: 'Viewed tours page',
+      entityType: 'system',
+      severity: 'info'
+    });
+  }, []);
+
+  useEffect(() => {
+    if (searchQuery) {
+      const timer = setTimeout(() => {
+        trackSearch(searchQuery, filteredTours.length);
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [searchQuery]);
 
   const updateFilter = (key: string, value: string) => {
     const newParams = new URLSearchParams(searchParams);

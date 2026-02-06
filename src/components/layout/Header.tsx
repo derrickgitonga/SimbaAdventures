@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Mountain, Phone } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
+import { SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/clerk-react';
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -35,11 +36,10 @@ export function Header() {
               <Link
                 key={link.href}
                 to={link.href}
-                className={`font-medium transition-colors duration-300 hover:text-accent ${
-                  location.pathname === link.href
-                    ? 'text-accent'
-                    : 'text-foreground/80'
-                }`}
+                className={`font-medium transition-colors duration-300 hover:text-accent ${location.pathname === link.href
+                  ? 'text-accent'
+                  : 'text-foreground/80'
+                  }`}
               >
                 {link.label}
               </Link>
@@ -52,6 +52,24 @@ export function Header() {
               <Phone className="w-4 h-4" />
               <span className="text-sm font-medium">+254 700 000 000</span>
             </a>
+
+            {/* Clerk Authentication */}
+            <SignedOut>
+              <SignInButton mode="modal">
+                <Button variant="outline" size="sm">Sign In</Button>
+              </SignInButton>
+            </SignedOut>
+            <SignedIn>
+              <UserButton
+                afterSignOutUrl="/"
+                appearance={{
+                  elements: {
+                    avatarBox: "w-9 h-9"
+                  }
+                }}
+              />
+            </SignedIn>
+
             <Button asChild className="btn-adventure">
               <Link to="/tours">Book Now</Link>
             </Button>
@@ -83,15 +101,31 @@ export function Header() {
                   key={link.href}
                   to={link.href}
                   onClick={() => setIsOpen(false)}
-                  className={`py-3 px-4 rounded-lg font-medium transition-colors ${
-                    location.pathname === link.href
-                      ? 'bg-accent/10 text-accent'
-                      : 'text-foreground hover:bg-muted'
-                  }`}
+                  className={`py-3 px-4 rounded-lg font-medium transition-colors ${location.pathname === link.href
+                    ? 'bg-accent/10 text-accent'
+                    : 'text-foreground hover:bg-muted'
+                    }`}
                 >
                   {link.label}
                 </Link>
               ))}
+
+              {/* Mobile Authentication */}
+              <SignedOut>
+                <SignInButton mode="modal">
+                  <Button variant="outline" className="mt-2">Sign In</Button>
+                </SignInButton>
+              </SignedOut>
+              <SignedIn>
+                <Link
+                  to="/my-bookings"
+                  onClick={() => setIsOpen(false)}
+                  className="py-3 px-4 rounded-lg font-medium text-foreground hover:bg-muted transition-colors"
+                >
+                  My Bookings
+                </Link>
+              </SignedIn>
+
               <Button asChild className="btn-adventure mt-2">
                 <Link to="/tours" onClick={() => setIsOpen(false)}>
                   Book Your Adventure

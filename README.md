@@ -54,7 +54,7 @@ Simba Adventures is a full-stack travel booking application built with React, No
 | **Build Tool** | Vite |
 | **Backend** | Node.js, Express.js |
 | **Database** | MongoDB Atlas |
-| **Authentication** | JWT, bcrypt |
+| **Authentication** | Clerk (Customer), JWT (Admin) |
 | **Payments** | Stripe, M-Pesa Integration |
 | **Deployment** | Vercel (Frontend), Railway (Backend) |
 | **Version Control** | Git, GitHub |
@@ -92,9 +92,12 @@ Simba Adventures is a full-stack travel booking application built with React, No
    Update `.env.local` with your configuration:
    ```env
    VITE_API_URL=http://localhost:5000
+   VITE_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
    MONGODB_URI=your_mongodb_connection_string
    JWT_SECRET=your_jwt_secret
    ```
+   
+   **Note:** Get your Clerk publishable key from [Clerk Dashboard](https://dashboard.clerk.com/last-active?path=api-keys). See [CLERK_INTEGRATION.md](./CLERK_INTEGRATION.md) for detailed setup instructions.
 
 4. **Start the development server:**
    ```bash

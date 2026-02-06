@@ -1,50 +1,37 @@
-import { useState } from 'react';
+import { SignIn, SignUp, useUser } from '@clerk/clerk-react';
 import { useNavigate } from 'react-router-dom';
-import { useUserAuth } from '@/contexts/UserAuthContext';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { useEffect, useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { User, Mail, Lock, Phone } from 'lucide-react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 
 export default function CustomerAuth() {
-
-    const { login, register } = useUserAuth();
+    const { isSignedIn, isLoaded } = useUser();
     const navigate = useNavigate();
-    const [loading, setLoading] = useState(false);
+    const [activeTab, setActiveTab] = useState<string>('login');
 
-    // Login State
-    const [lEmail, setLEmail] = useState('');
-    const [lPass, setLPass] = useState('');
-
-    // Register State
-    const [rName, setRName] = useState('');
-    const [rEmail, setREmail] = useState('');
-    const [rPass, setRPass] = useState('');
-    const [rPhone, setRPhone] = useState('');
-
-    const handleLogin = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setLoading(true);
-        if (await login(lEmail, lPass)) {
+    // Redirect to bookings if already signed in
+    useEffect(() => {
+        if (isLoaded && isSignedIn) {
             navigate('/my-bookings');
-        } else {
-            alert('Login failed');
         }
-        setLoading(false);
-    };
+    }, [isSignedIn, isLoaded, navigate]);
 
-    const handleRegister = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setLoading(true);
-        if (await register(rName, rEmail, rPass, rPhone)) {
-            navigate('/my-bookings');
-        } else {
-            alert('Registration failed');
-        }
-        setLoading(false);
-    };
+    // Show loading state while Clerk is initializing
+    if (!isLoaded) {
+        return (
+            <div className="min-h-screen flex flex-col">
+                <Header />
+                <div className="flex-1 container mx-auto px-4 py-20 flex items-center justify-center">
+                    <div className="text-center">
+                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+                        <p className="mt-4 text-muted-foreground">Loading...</p>
+                    </div>
+                </div>
+                <Footer />
+            </div>
+        );
+    }
 
     return (
         <div className="min-h-screen flex flex-col">
@@ -53,68 +40,54 @@ export default function CustomerAuth() {
                 <div className="w-full max-w-md">
                     <h1 className="text-3xl font-bold text-center mb-8">My Account</h1>
 
-                    <Tabs defaultValue="login" className="w-full">
+                    <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
                         <TabsList className="grid w-full grid-cols-2 mb-8">
                             <TabsTrigger value="login">Login</TabsTrigger>
                             <TabsTrigger value="register">Register</TabsTrigger>
                         </TabsList>
 
                         <TabsContent value="login">
-                            <form onSubmit={handleLogin} className="space-y-4 p-6 border rounded-xl bg-card shadow-sm">
-                                <div className="space-y-2">
-                                    <label>Email</label>
-                                    <div className="relative">
-                                        <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                                        <Input className="pl-10" value={lEmail} onChange={e => setLEmail(e.target.value)} required />
-                                    </div>
-                                </div>
-                                <div className="space-y-2">
-                                    <label>Password</label>
-                                    <div className="relative">
-                                        <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                                        <Input type="password" className="pl-10" value={lPass} onChange={e => setLPass(e.target.value)} required />
-                                    </div>
-                                </div>
-                                <Button className="w-full" disabled={loading}>
-                                    {loading ? 'Processing...' : 'Login'}
-                                </Button>
-                            </form>
+                            <div className="flex justify-center">
+                                <SignIn
+                                    routing="path"
+                                    path="/auth"
+                                    signUpUrl="/auth"
+                                    afterSignInUrl="/my-bookings"
+                                    appearance={{
+                                        elements: {
+                                            rootBox: "w-full",
+                                            card: "shadow-sm border rounded-xl bg-card",
+                                            headerTitle: "hidden",
+                                            headerSubtitle: "hidden",
+                                            socialButtonsBlockButton: "border hover:bg-accent",
+                                            formButtonPrimary: "bg-primary hover:bg-primary/90",
+                                            footerActionLink: "text-primary hover:text-primary/90"
+                                        }
+                                    }}
+                                />
+                            </div>
                         </TabsContent>
 
                         <TabsContent value="register">
-                            <form onSubmit={handleRegister} className="space-y-4 p-6 border rounded-xl bg-card shadow-sm">
-                                <div className="space-y-2">
-                                    <label>Full Name</label>
-                                    <div className="relative">
-                                        <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                                        <Input className="pl-10" value={rName} onChange={e => setRName(e.target.value)} required />
-                                    </div>
-                                </div>
-                                <div className="space-y-2">
-                                    <label>Email</label>
-                                    <div className="relative">
-                                        <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                                        <Input type="email" className="pl-10" value={rEmail} onChange={e => setREmail(e.target.value)} required />
-                                    </div>
-                                </div>
-                                <div className="space-y-2">
-                                    <label>Phone</label>
-                                    <div className="relative">
-                                        <Phone className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                                        <Input className="pl-10" value={rPhone} onChange={e => setRPhone(e.target.value)} required />
-                                    </div>
-                                </div>
-                                <div className="space-y-2">
-                                    <label>Password</label>
-                                    <div className="relative">
-                                        <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                                        <Input type="password" className="pl-10" value={rPass} onChange={e => setRPass(e.target.value)} required />
-                                    </div>
-                                </div>
-                                <Button className="w-full bg-green-600 hover:bg-green-700" disabled={loading}>
-                                    {loading ? 'Creating Account...' : 'Create Account'}
-                                </Button>
-                            </form>
+                            <div className="flex justify-center">
+                                <SignUp
+                                    routing="path"
+                                    path="/auth"
+                                    signInUrl="/auth"
+                                    afterSignUpUrl="/my-bookings"
+                                    appearance={{
+                                        elements: {
+                                            rootBox: "w-full",
+                                            card: "shadow-sm border rounded-xl bg-card",
+                                            headerTitle: "hidden",
+                                            headerSubtitle: "hidden",
+                                            socialButtonsBlockButton: "border hover:bg-accent",
+                                            formButtonPrimary: "bg-green-600 hover:bg-green-700",
+                                            footerActionLink: "text-primary hover:text-primary/90"
+                                        }
+                                    }}
+                                />
+                            </div>
                         </TabsContent>
                     </Tabs>
                 </div>

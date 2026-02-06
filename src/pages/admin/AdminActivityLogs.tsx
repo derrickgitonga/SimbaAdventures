@@ -22,6 +22,10 @@ interface ActivityLogEntry {
     action: string;
     description: string;
     adminEmail: string;
+    userId?: string;
+    userEmail?: string;
+    userName?: string;
+    userType?: 'admin' | 'customer' | 'system';
     entityType: string;
     entityId?: string;
     severity: 'info' | 'warning' | 'error' | 'critical';
@@ -63,7 +67,19 @@ const actionLabels: Record<string, string> = {
     POS_REFUND: '↩️ Refund',
     PAYMENT_RECEIVED: '💵 Payment',
     SETTINGS_CHANGE: '⚙️ Settings',
-    PAGE_VIEW: '👁️ Page View'
+    PAGE_VIEW: '👁️ Page View',
+    CUSTOMER_SIGNUP: '👤 Customer Signup',
+    CUSTOMER_LOGIN: '🔓 Customer Login',
+    CUSTOMER_LOGOUT: '🔒 Customer Logout',
+    CUSTOMER_VIEW_TOURS: '🌍 Browse Tours',
+    CUSTOMER_VIEW_TOUR_DETAIL: '🔍 View Tour',
+    CUSTOMER_SEARCH: '🔎 Search',
+    CUSTOMER_BOOKING_ATTEMPT: '📝 Booking Attempt',
+    CUSTOMER_BOOKING_SUCCESS: '✅ Booking Success',
+    CUSTOMER_BOOKING_FAILED: '❌ Booking Failed',
+    CUSTOMER_VIEW_MY_BOOKINGS: '📋 My Bookings',
+    CUSTOMER_PROFILE_VIEW: '👤 Profile View',
+    CUSTOMER_PROFILE_UPDATE: '✏️ Profile Update'
 };
 
 export default function AdminActivityLogs() {
@@ -281,7 +297,27 @@ export default function AdminActivityLogs() {
                                             </td>
                                             <td className="p-4">
                                                 <p className="text-sm text-foreground max-w-md truncate">{log.description}</p>
-                                                <p className="text-xs text-muted-foreground">{log.adminEmail}</p>
+                                                <div className="flex items-center gap-2 mt-1">
+                                                    {log.userType === 'customer' ? (
+                                                        <>
+                                                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs bg-blue-500/10 text-blue-500">
+                                                                👤 Customer
+                                                            </span>
+                                                            <span className="text-xs text-muted-foreground">
+                                                                {log.userName || log.userEmail}
+                                                            </span>
+                                                        </>
+                                                    ) : log.userType === 'admin' ? (
+                                                        <>
+                                                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs bg-purple-500/10 text-purple-500">
+                                                                🔐 Admin
+                                                            </span>
+                                                            <span className="text-xs text-muted-foreground">{log.adminEmail}</span>
+                                                        </>
+                                                    ) : (
+                                                        <span className="text-xs text-muted-foreground">System</span>
+                                                    )}
+                                                </div>
                                             </td>
                                             <td className="p-4">
                                                 {log.success ? (

@@ -26,7 +26,19 @@ const activityLogSchema = new mongoose.Schema({
             'SETTINGS_CHANGE',
             'USER_SEARCH',
             'CUSTOMER_VIEW',
-            'PAGE_VIEW'
+            'PAGE_VIEW',
+            'CUSTOMER_SIGNUP',
+            'CUSTOMER_LOGIN',
+            'CUSTOMER_LOGOUT',
+            'CUSTOMER_VIEW_TOURS',
+            'CUSTOMER_VIEW_TOUR_DETAIL',
+            'CUSTOMER_SEARCH',
+            'CUSTOMER_BOOKING_ATTEMPT',
+            'CUSTOMER_BOOKING_SUCCESS',
+            'CUSTOMER_BOOKING_FAILED',
+            'CUSTOMER_VIEW_MY_BOOKINGS',
+            'CUSTOMER_PROFILE_VIEW',
+            'CUSTOMER_PROFILE_UPDATE'
         ]
     },
     adminId: {
@@ -36,6 +48,23 @@ const activityLogSchema = new mongoose.Schema({
     adminEmail: {
         type: String,
         default: 'admin@simba-adventures.com'
+    },
+    userId: {
+        type: String,
+        default: null
+    },
+    userEmail: {
+        type: String,
+        default: null
+    },
+    userName: {
+        type: String,
+        default: null
+    },
+    userType: {
+        type: String,
+        enum: ['admin', 'customer', 'system'],
+        default: 'admin'
     },
     description: {
         type: String,
@@ -55,7 +84,7 @@ const activityLogSchema = new mongoose.Schema({
     },
     entityType: {
         type: String,
-        enum: ['tour', 'booking', 'customer', 'payment', 'system', 'pos'],
+        enum: ['tour', 'booking', 'customer', 'payment', 'system', 'pos', 'user'],
         default: 'system'
     },
     entityId: {
