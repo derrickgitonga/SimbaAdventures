@@ -36,23 +36,53 @@ let toursCache = null;
 let cacheTime = 0;
 const CACHE_DURATION = 60000;
 
-let isConnected = false;
-const connectToDatabase = async () => {
-    if (isConnected) return;
-    try {
-        await mongoose.connect(process.env.MONGODB_URI);
-        isConnected = true;
-        console.log('Connected to MongoDB');
-    } catch (err) {
-        console.error('MongoDB error:', err);
+let cached = global.mongoose;
+
+if (!cached) {
+    cached = global.mongoose = { conn: null, promise: null };
+}
+
+async function connectToDatabase() {
+    if (cached.conn) {
+        return cached.conn;
     }
-};
+
+    if (!cached.promise) {
+        const opts = {
+            bufferCommands: false,
+            maxPoolSize: 10,
+            serverSelectionTimeoutMS: 5000,
+            socketTimeoutMS: 45000,
+        };
+
+        cached.promise = mongoose.connect(process.env.MONGODB_URI, opts).then((mongoose) => {
+            console.log('MongoDB connected');
+            return mongoose;
+        });
+    }
+
+    try {
+        cached.conn = await cached.promise;
+    } catch (e) {
+        cached.promise = null;
+        throw e;
+    }
+
+    return cached.conn;
+}
 
 app.use(cors({ origin: '*', methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE'], credentials: true }));
 app.use(express.json());
-app.use(async (req, res, next) => { await connectToDatabase(); next(); });
+app.use(async (req, res, next) => {
+    try {
+        await connectToDatabase();
+        next();
+    } catch (error) {
+        console.error('DB connection error:', error);
+        res.status(500).json({ error: 'Database connection failed' });
+    }
+});
 
-// --- HELPERS ---
 const generateTransactionId = () => `TXN-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).substring(2, 8).toUpperCase()}`;
 const generateReceiptNumber = () => `SA-${new Date().toISOString().slice(0, 10).replace(/-/g, '')}-${Math.floor(Math.random() * 10000).toString().padStart(4, '0')}`;
 
@@ -73,7 +103,6 @@ const logActivity = async (req, action, description, options = {}) => {
     } catch (err) { console.error('Log error', err); }
 };
 
-// --- MIDDLEWARE ---
 const authenticateToken = (req, res, next) => {
     const token = req.headers['authorization']?.split(' ')[1];
     if (!token) return res.status(401).json({ error: 'Access token required' });
@@ -103,7 +132,6 @@ const optionalAuth = (req, res, next) => {
     });
 };
 
-// --- AUTH ROUTES (CUSTOMER) ---
 app.post('/api/auth/register', async (req, res) => {
     try {
         const { name, email, password, phone } = req.body;
@@ -140,7 +168,6 @@ app.get('/api/user/bookings', authenticateUser, async (req, res) => {
     } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-// --- ADMIN ROUTES --- (Condensed for brevity, assumed same as before)
 app.post('/api/admin/login', async (req, res) => {
     const { password, email } = req.body;
     if (password === ADMIN_PASSWORD || (email === 'admin@simba-adventures.com' && password === ADMIN_PASSWORD)) {
@@ -151,7 +178,6 @@ app.post('/api/admin/login', async (req, res) => {
     return res.status(401).json({ error: 'Invalid credentials' });
 });
 
-// --- PUBLIC BOOKING ---
 app.post('/api/bookings', optionalAuth, async (req, res) => {
     try {
         const bookingData = req.body;
@@ -181,11 +207,11 @@ app.post('/api/bookings', optionalAuth, async (req, res) => {
 
         res.status(201).json(booking);
     } catch (error) {
+        console.error('Booking creation error:', error);
         res.status(400).json({ error: error.message });
     }
 });
 
-// --- ADMIN BOOKINGS ---
 app.get('/api/admin/bookings', authenticateToken, async (req, res) => {
     try {
         const { status, from, to, limit, page } = req.query;
@@ -250,13 +276,13 @@ app.delete('/api/admin/bookings/:id', authenticateToken, async (req, res) => {
     } catch (error) { res.status(500).json({ error: error.message }); }
 });
 
-// --- TOURS ---
 async function getTours() {
     if (toursCache && Date.now() - cacheTime < CACHE_DURATION) return toursCache;
     toursCache = await Tour.find().sort({ createdAt: -1 }).lean();
     cacheTime = Date.now();
     return toursCache;
 }
+
 app.get('/api/tours', async (req, res) => {
     const tours = await getTours();
     res.json(tours);
@@ -290,7 +316,6 @@ app.delete('/api/admin/tours/:id', authenticateToken, async (req, res) => {
     } catch (error) { res.status(500).json({ error: error.message }); }
 });
 
-// --- POS ---
 app.post('/api/admin/pos/sale', authenticateToken, async (req, res) => {
     try {
         const { customer, items, paymentMethod, total } = req.body;
@@ -330,7 +355,6 @@ app.post('/api/admin/pos/sale', authenticateToken, async (req, res) => {
     } catch (e) { res.status(400).json({ error: e.message }); }
 });
 
-// --- DASHBOARD ---
 app.get('/api/admin/dashboard/stats', authenticateToken, async (req, res) => {
     try {
         const now = new Date();

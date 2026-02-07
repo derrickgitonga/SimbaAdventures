@@ -18,17 +18,30 @@ export function useCreateBooking() {
     const queryClient = useQueryClient();
     return useMutation({
         mutationFn: async (bookingData: Omit<Booking, 'id' | 'createdAt'>) => {
+            console.log('Creating booking:', bookingData);
             const response = await fetch(`${API_URL}/bookings`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(bookingData),
             });
-            if (!response.ok) throw new Error('Failed to create booking');
-            return response.json();
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error('Booking creation failed:', response.status, errorText);
+                throw new Error(`Failed to create booking: ${response.status}`);
+            }
+
+            const result = await response.json();
+            console.log('Booking created successfully:', result);
+            return result;
         },
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['bookings'] });
+            queryClient.invalidateQueries({ queryKey: ['admin-bookings'] });
         },
+        onError: (error) => {
+            console.error('Booking mutation error:', error);
+        }
     });
 }
 
