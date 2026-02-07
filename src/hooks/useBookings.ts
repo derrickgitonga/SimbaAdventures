@@ -1,8 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import type { Booking } from '@/data/mockData';
 
-const isDev = import.meta.env.DEV;
-const API_URL = isDev ? 'http://localhost:5000/api' : '/api';
+const API_URL = import.meta.env.VITE_API_URL || '/api';
 
 export function useBookings() {
     return useQuery({

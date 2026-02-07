@@ -105,14 +105,16 @@ const optionalAuth = (req, res, next) => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
 
-    if (token) {
-        jwt.verify(token, JWT_SECRET, (err, user) => {
-            if (!err) {
-                req.user = user;
-            }
-        });
+    if (!token) {
+        return next();
     }
-    next();
+
+    jwt.verify(token, JWT_SECRET, (err, user) => {
+        if (!err) {
+            req.user = user;
+        }
+        next();
+    });
 };
 
 async function getToursFromCache() {
@@ -362,7 +364,13 @@ app.get('/api/admin/bookings', authenticateToken, async (req, res) => {
 
 app.post('/api/bookings', optionalAuth, async (req, res) => {
     try {
-        const booking = new Booking(req.body);
+        const bookingData = req.body;
+
+        if (req.user && req.user.isCustomer) {
+            bookingData.userId = req.user.id;
+        }
+
+        const booking = new Booking(bookingData);
         await booking.save();
 
         await logActivity(req, 'CREATE_BOOKING', `New booking: ${booking.customerName} - ${booking.tourTitle}`, {

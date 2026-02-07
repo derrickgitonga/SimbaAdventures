@@ -94,6 +94,15 @@ const authenticateUser = (req, res, next) => {
     });
 };
 
+const optionalAuth = (req, res, next) => {
+    const token = req.headers['authorization']?.split(' ')[1];
+    if (!token) return next();
+    jwt.verify(token, JWT_SECRET, (err, user) => {
+        if (!err) req.user = user;
+        next();
+    });
+};
+
 // --- AUTH ROUTES (CUSTOMER) ---
 app.post('/api/auth/register', async (req, res) => {
     try {
@@ -143,24 +152,88 @@ app.post('/api/admin/login', async (req, res) => {
 });
 
 // --- PUBLIC BOOKING ---
-app.post('/api/bookings', async (req, res) => {
+app.post('/api/bookings', optionalAuth, async (req, res) => {
     try {
         const bookingData = req.body;
 
+        if (req.user && req.user.isCustomer) {
+            bookingData.userId = req.user.id;
+        }
+
         const user = await User.findOne({ email: bookingData.customerEmail });
-        if (user) bookingData.userId = user._id;
+        if (user && !bookingData.userId) {
+            bookingData.userId = user._id;
+        }
 
         const booking = new Booking(bookingData);
         await booking.save();
+
+        await logActivity(req, 'CREATE_BOOKING', `New booking: ${booking.customerName} - ${booking.tourTitle}`, {
+            entityType: 'booking',
+            entityId: booking._id.toString(),
+            metadata: {
+                customer: booking.customerName,
+                tour: booking.tourTitle,
+                amount: booking.totalAmount,
+                participants: booking.participants
+            }
+        });
+
         res.status(201).json(booking);
-    } catch (error) { res.status(400).json({ error: error.message }); }
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
 });
 
 // --- ADMIN BOOKINGS ---
 app.get('/api/admin/bookings', authenticateToken, async (req, res) => {
-    // ... same as before
-    const bookings = await Booking.find().sort({ createdAt: -1 }).limit(100);
-    res.json({ bookings, pagination: { total: bookings.length } });
+    try {
+        const { status, from, to, limit, page } = req.query;
+        const query = {};
+
+        if (status) query.status = status;
+        if (from || to) {
+            query.createdAt = {};
+            if (from) query.createdAt.$gte = new Date(from);
+            if (to) query.createdAt.$lte = new Date(to);
+        }
+
+        const pageNum = parseInt(page) || 1;
+        const limitNum = parseInt(limit) || 50;
+        const skip = (pageNum - 1) * limitNum;
+
+        const [bookings, total] = await Promise.all([
+            Booking.find(query).sort({ createdAt: -1 }).skip(skip).limit(limitNum).lean(),
+            Booking.countDocuments(query)
+        ]);
+
+        await logActivity(req, 'VIEW_BOOKING', 'Viewed bookings list', {
+            adminId: req.user.id,
+            entityType: 'booking',
+            metadata: { count: bookings.length, filters: req.query }
+        });
+
+        res.json({
+            bookings,
+            pagination: {
+                page: pageNum,
+                limit: limitNum,
+                total,
+                pages: Math.ceil(total / limitNum)
+            }
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+app.get('/api/bookings', async (req, res) => {
+    try {
+        const bookings = await Booking.find().sort({ createdAt: -1 }).lean();
+        res.json(bookings);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 });
 
 app.patch('/api/admin/bookings/:id', authenticateToken, async (req, res) => {
@@ -259,9 +332,166 @@ app.post('/api/admin/pos/sale', authenticateToken, async (req, res) => {
 
 // --- DASHBOARD ---
 app.get('/api/admin/dashboard/stats', authenticateToken, async (req, res) => {
-    // ... simplified
-    const stats = { overview: { totalTours: await Tour.countDocuments(), totalBookings: await Booking.countDocuments() } };
-    res.json(stats);
+    try {
+        const now = new Date();
+        const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+        const lastMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+
+        const [totalTours, totalBookings, thisMonthBookings, lastMonthBookings, pendingBookings, recentBookings, topTours] = await Promise.all([
+            Tour.countDocuments(),
+            Booking.countDocuments(),
+            Booking.countDocuments({ createdAt: { $gte: startOfMonth } }),
+            Booking.countDocuments({ createdAt: { $gte: lastMonth, $lt: startOfMonth } }),
+            Booking.countDocuments({ status: 'Pending' }),
+            Booking.find().sort({ createdAt: -1 }).limit(10).lean(),
+            Booking.aggregate([
+                { $match: { status: { $in: ['Confirmed', 'Completed'] } } },
+                { $group: { _id: '$tourTitle', count: { $sum: 1 }, revenue: { $sum: '$totalAmount' } } },
+                { $sort: { count: -1 } },
+                { $limit: 5 }
+            ])
+        ]);
+
+        const revenue = await Booking.aggregate([
+            { $match: { createdAt: { $gte: startOfMonth }, status: { $in: ['Confirmed', 'Completed'] } } },
+            { $group: { _id: null, total: { $sum: '$totalAmount' } } }
+        ]);
+
+        const lastMonthRevenue = await Booking.aggregate([
+            { $match: { createdAt: { $gte: lastMonth, $lt: startOfMonth }, status: { $in: ['Confirmed', 'Completed'] } } },
+            { $group: { _id: null, total: { $sum: '$totalAmount' } } }
+        ]);
+
+        const currentRevenue = revenue[0]?.total || 0;
+        const previousRevenue = lastMonthRevenue[0]?.total || 0;
+        const revenueChange = previousRevenue > 0 ? Math.round(((currentRevenue - previousRevenue) / previousRevenue) * 100) : 0;
+        const bookingsChange = lastMonthBookings > 0 ? Math.round(((thisMonthBookings - lastMonthBookings) / lastMonthBookings) * 100) : 0;
+
+        await logActivity(req, 'VIEW_DASHBOARD', 'Viewed admin dashboard', {
+            adminId: req.user.id,
+            entityType: 'dashboard'
+        });
+
+        res.json({
+            overview: {
+                totalTours,
+                totalBookings,
+                thisMonthBookings,
+                pendingBookings,
+                revenue: currentRevenue,
+                revenueChange,
+                bookingsChange
+            },
+            recentBookings,
+            topTours
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+app.get('/api/admin/pos/summary', authenticateToken, async (req, res) => {
+    try {
+        const now = new Date();
+        const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        const startOfWeek = new Date(now);
+        startOfWeek.setDate(now.getDate() - now.getDay());
+        const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+
+        const [todayStats, weekStats, monthStats, recentTransactions] = await Promise.all([
+            POSTransaction.aggregate([
+                { $match: { createdAt: { $gte: startOfDay }, type: 'SALE' } },
+                { $group: { _id: null, total: { $sum: '$total' }, count: { $sum: 1 } } }
+            ]),
+            POSTransaction.aggregate([
+                { $match: { createdAt: { $gte: startOfWeek }, type: 'SALE' } },
+                { $group: { _id: null, total: { $sum: '$total' }, count: { $sum: 1 } } }
+            ]),
+            POSTransaction.aggregate([
+                { $match: { createdAt: { $gte: startOfMonth }, type: 'SALE' } },
+                { $group: { _id: null, total: { $sum: '$total' }, count: { $sum: 1 } } }
+            ]),
+            POSTransaction.find().sort({ createdAt: -1 }).limit(10).lean()
+        ]);
+
+        res.json({
+            today: todayStats[0] || { total: 0, count: 0 },
+            week: weekStats[0] || { total: 0, count: 0 },
+            month: monthStats[0] || { total: 0, count: 0 },
+            recentTransactions
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+app.get('/api/admin/activity-logs', authenticateToken, async (req, res) => {
+    try {
+        const { action, severity, from, to, page, limit } = req.query;
+        const query = {};
+
+        if (action) query.action = action;
+        if (severity) query.severity = severity;
+        if (from || to) {
+            query.createdAt = {};
+            if (from) query.createdAt.$gte = new Date(from);
+            if (to) query.createdAt.$lte = new Date(to);
+        }
+
+        const pageNum = parseInt(page) || 1;
+        const limitNum = parseInt(limit) || 25;
+        const skip = (pageNum - 1) * limitNum;
+
+        const [logs, total] = await Promise.all([
+            ActivityLog.find(query).sort({ createdAt: -1 }).skip(skip).limit(limitNum).lean(),
+            ActivityLog.countDocuments(query)
+        ]);
+
+        res.json({
+            logs,
+            pagination: {
+                page: pageNum,
+                limit: limitNum,
+                total,
+                pages: Math.ceil(total / limitNum)
+            }
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+app.get('/api/admin/activity-logs/summary', authenticateToken, async (req, res) => {
+    try {
+        const now = new Date();
+        const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+        const [todayTotal, actionBreakdown, recentErrors, hourlyActivity] = await Promise.all([
+            ActivityLog.countDocuments({ createdAt: { $gte: startOfDay } }),
+            ActivityLog.aggregate([
+                { $match: { createdAt: { $gte: startOfDay } } },
+                { $group: { _id: '$action', count: { $sum: 1 } } },
+                { $sort: { count: -1 } },
+                { $limit: 10 }
+            ]),
+            ActivityLog.find({ severity: { $in: ['error', 'critical'] }, createdAt: { $gte: startOfDay } })
+                .sort({ createdAt: -1 }).limit(5).lean(),
+            ActivityLog.aggregate([
+                { $match: { createdAt: { $gte: startOfDay } } },
+                { $group: { _id: { $hour: '$createdAt' }, count: { $sum: 1 } } },
+                { $sort: { _id: 1 } }
+            ])
+        ]);
+
+        res.json({
+            todayTotal,
+            actionBreakdown,
+            recentErrors,
+            hourlyActivity
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 });
 
 export default app;
