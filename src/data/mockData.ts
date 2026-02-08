@@ -33,6 +33,7 @@ export interface Tour {
 export interface Booking {
   id: string;
   tourId: string;
+  userId?: string;
   tourTitle: string;
   customerName: string;
   customerEmail: string;

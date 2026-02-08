@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, Calendar, Users, User, Mail, Phone, Loader2, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useCreateBooking } from '@/hooks/useBookings';
+import { useUser } from '@clerk/clerk-react';
 import type { Tour } from '@/data/mockData';
 
 interface BookingModalProps {
@@ -12,6 +13,7 @@ interface BookingModalProps {
 }
 
 export function BookingModal({ tour, isOpen, onClose }: BookingModalProps) {
+    const { user } = useUser();
     const [formData, setFormData] = useState({
         customerName: '',
         customerEmail: '',
@@ -29,6 +31,7 @@ export function BookingModal({ tour, isOpen, onClose }: BookingModalProps) {
         createBooking({
             tourId: tour._id || tour.id || '',
             tourTitle: tour.title,
+            userId: user?.id, // Include Clerk user ID
             customerName: formData.customerName,
             customerEmail: formData.customerEmail,
             customerPhone: formData.customerPhone,

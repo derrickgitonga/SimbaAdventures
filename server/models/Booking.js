@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const bookingSchema = new mongoose.Schema({
     tourId: { type: mongoose.Schema.Types.ObjectId, ref: 'Tour', required: true },
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', default: null }, // Link to registered user
+    userId: { type: String, default: null }, // Clerk user ID
     tourTitle: { type: String, required: true },
     customerName: { type: String, required: true },
     customerEmail: { type: String, required: true },

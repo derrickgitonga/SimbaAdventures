@@ -362,14 +362,11 @@ app.get('/api/admin/bookings', authenticateToken, async (req, res) => {
     }
 });
 
-app.post('/api/bookings', optionalAuth, async (req, res) => {
+app.post('/api/bookings', async (req, res) => {
     try {
         const bookingData = req.body;
 
-        if (req.user && req.user.isCustomer) {
-            bookingData.userId = req.user.id;
-        }
-
+        // userId is sent directly from the frontend (Clerk user ID)
         const booking = new Booking(bookingData);
         await booking.save();
 
@@ -380,7 +377,8 @@ app.post('/api/bookings', optionalAuth, async (req, res) => {
                 customer: booking.customerName,
                 tour: booking.tourTitle,
                 amount: booking.totalAmount,
-                participants: booking.participants
+                participants: booking.participants,
+                userId: booking.userId || null
             }
         });
 
